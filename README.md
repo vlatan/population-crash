@@ -18,7 +18,7 @@ By doing this it is likely that sterile males and CRISPR females will propagate 
 spread through the population and if they reach a critical number the population may 
 even crash.
 
-**Assumptions for this experiment:**  
+**Assumptions:**  
 * An individual's lifespan is represented in female reproductive cycles rather than in years. 
 So if a female has 3 reproductive cycles per year and the maximum lifespan 
 of a member of that population is 4 years then the maximum lifespan is represented as 12 cycles.  
@@ -52,4 +52,5 @@ the female has no CRISPR genes they will produce healthy offspring.
 This simulation, as it is, shows that in order to crash a population you need 
 a very high number of females with edited genes among the population. 
 Although sometimes you can crash the population even with as little as 30% of 
-the females being CRISPR edited, the higher that percentage the more likely it is to crash.
+the females being CRISPR edited, the higher that percentage the more likely it is 
+the population to crash.
