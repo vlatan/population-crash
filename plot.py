@@ -1,25 +1,24 @@
 import matplotlib.pyplot as plt
-from matplotlib import rcParams
 from simulation import *
 
 
 def plot(nonSterile, nonCrispr, crispr, sterile, totalPop):
     """ Plots various different population categories. """
     plt.style.use('fivethirtyeight')
-    rcParams['figure.figsize'] = [16, 9]
-    rcParams['axes.titlepad'] = 25
-    rcParams['axes.titlesize'] = 15
-    rcParams['axes.titleweight'] = 700
-    rcParams['axes.labelpad'] = 25
-    rcParams['axes.labelsize'] = 14
-    rcParams['axes.labelweight'] = 700
-    rcParams['legend.fontsize'] = 14
-    rcParams['xtick.labelsize'] = 14
-    rcParams['ytick.labelsize'] = 14
-    rcParams['savefig.bbox'] = 'tight'
-    rcParams['savefig.pad_inches'] = 0.8
-    # rcParams['savefig.dpi'] = 80
-    # rcParams['figure.dpi'] = 80
+    plt.rcParams['figure.figsize'] = [16, 9]
+    plt.rcParams['axes.titlepad'] = 25
+    plt.rcParams['axes.titlesize'] = 15
+    plt.rcParams['axes.titleweight'] = 700
+    plt.rcParams['axes.labelpad'] = 25
+    plt.rcParams['axes.labelsize'] = 14
+    plt.rcParams['axes.labelweight'] = 700
+    plt.rcParams['legend.fontsize'] = 14
+    plt.rcParams['xtick.labelsize'] = 14
+    plt.rcParams['ytick.labelsize'] = 14
+    plt.rcParams['savefig.bbox'] = 'tight'
+    plt.rcParams['savefig.pad_inches'] = 0.8
+    # plt.rcParams['savefig.dpi'] = 80
+    # plt.rcParams['figure.dpi'] = 80
 
     plt.plot(nonSterile, lw=2, label="Healthy Males")
     plt.plot(nonCrispr, lw=2, label="Healthy Females")
