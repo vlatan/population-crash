@@ -17,7 +17,7 @@ def plot(nonSterile, nonCrispr, crispr, sterile, totalPop):
     rcParams['xtick.labelsize'] = 14
     rcParams['ytick.labelsize'] = 14
     rcParams['savefig.bbox'] = 'tight'
-    rcParams['savefig.pad_inches'] = 0.35
+    rcParams['savefig.pad_inches'] = 0.8
     # rcParams['savefig.dpi'] = 80
     # rcParams['figure.dpi'] = 80
 
