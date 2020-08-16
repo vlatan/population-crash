@@ -23,7 +23,7 @@ even crash.
 So if a female has 3 reproductive cycles per year and the maximum lifespan 
 of a member of that population is 4 years then the maximum lifespan is represented as 12 cycles.  
 * Females and males form random pairs during every reproductive cycle. This is obviously not 
-true for all species, thus this simulation is not applicable for all all species.
+true for all species, thus this simulation is not applicable for all the species.
 
 **Variables you can adjust for this simulation:**  
 * **cycles** - number of reproductive cycles you want this simulation to run.  
@@ -31,8 +31,8 @@ true for all species, thus this simulation is not applicable for all all species
 * **offspring** - maximum number of children a pair can have.  
 * **lifespan** - maximum number of female reproductive cycles.  
 * **crisprFems** - number of females with CRISPR edited genes in the population.  
-* **popLimit** - maximum size of the population (every population in the wild has some 
-equilibrium where it's kept in check with predators, diseases, elements, etc).
+* **popLimit** - maximum size of the population (every population in the wild exists in some 
+sort of equilibrium where its numbers are kept in check by predators, diseases, environment, etc).
 
 ~~~
 results = simulate(cycles=2000,
@@ -44,10 +44,12 @@ results = simulate(cycles=2000,
 ~~~
 
 So, at every cycle males and females form random pairs to mate. They produce 
-random number of male and female children. If a female carries CRISPR edited genes 
-and the male is not sterile they will produce female children that carry 
-CRISPR genes and sterile male children. Otherwise if the male is not sterile and 
-the female has no CRISPR genes they will produce healthy offspring.
+random number of male and female children. If a female parent carries CRISPR edited genes 
+and the male parent is not sterile they will produce female children that carry 
+CRISPR genes and sterile male children. Otherwise if the male parent is not sterile and 
+the female parent has no CRISPR genes they will produce healthy offspring. However only a certain 
+number of randomly chosen children per cycle actually survive (population limit minus 
+current population size).
 
 This simulation, as it is, shows that in order to crash a population you need 
 a very high number of females with edited genes among the population. 
