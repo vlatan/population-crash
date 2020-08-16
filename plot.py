@@ -21,10 +21,10 @@ def plot(nonSterile, nonCrispr, crispr, sterile, totalPop):
     # rcParams['savefig.dpi'] = 80
     # rcParams['figure.dpi'] = 80
 
-    plt.plot(nonSterile, lw=1, label="Healthy Males")
-    plt.plot(nonCrispr, lw=1, label="Healthy Females")
-    plt.plot(crispr, lw=1, label="CRISPR Females")
-    plt.plot(sterile, lw=1, label="Sterile Males")
+    plt.plot(nonSterile, lw=2, label="Healthy Males")
+    plt.plot(nonCrispr, lw=2, label="Healthy Females")
+    plt.plot(crispr, lw=2, label="CRISPR Females")
+    plt.plot(sterile, lw=2, label="Sterile Males")
     # plt.plot(totalPop, label="Total population")
     plt.xlabel('Cycles')
     plt.ylabel('Population')
@@ -34,11 +34,11 @@ def plot(nonSterile, nonCrispr, crispr, sterile, totalPop):
 
 
 if __name__ == "__main__":
-    results = simulate(cycles=2000,
+    results = simulate(cycles=400,
                        initSize=1900,
                        offspring=12,
                        lifespan=4,
-                       crisprFems=400,
+                       crisprFems=500,
                        popLimit=2000)
 
     plot(results['nonSterile'],
