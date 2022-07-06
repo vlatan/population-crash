@@ -16,7 +16,7 @@ def simulate(cycles, initSize, offspring, lifespan, crisprFems, popLimit):
     Returns the numbers for each population category in a dict.
     """
     # build the population
-    males, females = buildPopulation(initSize, lifespan, crisprFems)
+    males, females = create_population(initSize, lifespan, crisprFems)
 
     # record the initial numbers
     population = len(males) + len(females)
