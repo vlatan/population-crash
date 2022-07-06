@@ -10,16 +10,16 @@ class Individual:
         self.lifespan = lifespan
         self.age = age
 
-    def getAge(self):
+    def get_age(self):
         return self.age
 
-    def increaseAge(self):
+    def increase_age(self):
         self.age += 1
 
-    def getLifespan(self):
+    def get_lifespan(self):
         return self.lifespan
 
-    def ifDead(self):
+    def if_dead(self):
         """Checks whether the individual has expired"""
         return self.getAge() > self.getLifespan()
 
@@ -40,7 +40,7 @@ class Male(Individual):
         Individual.__init__(self, lifespan, age)
         self.sterile = sterile
 
-    def getSterile(self):
+    def get_sterile(self):
         return self.sterile
 
     def __str__(self):
