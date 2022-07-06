@@ -30,9 +30,7 @@ class Male(Individual):
         self.sterile = sterile
 
     def __str__(self):
-        return (
-            "<Male -> sterile = " + str(self.sterile) + ", " + super().__str__() + ">"
-        )
+        return f"<Male -> sterile = {str(self.sterile)}, {super().__str__()}>"
 
 
 class Female(Individual):
@@ -42,9 +40,7 @@ class Female(Individual):
         self.crispr = crispr
 
     def __str__(self):
-        return (
-            "<Female -> CRISPR = " + str(self.crispr) + ", " + super().__str__() + ">"
-        )
+        return f"<Female -> CRISPR = {str(self.crispr)}, {super().__str__()}>"
 
 
 def buildPopulation(size, lifespan, crisprFemales):
