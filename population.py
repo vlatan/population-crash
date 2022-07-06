@@ -21,16 +21,16 @@ class Individual:
 
     def if_dead(self):
         """Checks whether the individual has expired"""
-        return self.getAge() > self.getLifespan()
+        return self.get_age() > self.get_lifespan()
 
     def __str__(self):
         return (
             "age = "
-            + str(self.getAge())
+            + str(self.get_age())
             + ", lifespan = "
-            + str(self.getLifespan())
+            + str(self.get_lifespan())
             + ", dead = "
-            + str(self.ifDead())
+            + str(self.if_dead())
         )
 
 
@@ -46,7 +46,7 @@ class Male(Individual):
     def __str__(self):
         return (
             "<Male -> sterile = "
-            + str(self.getSterile())
+            + str(self.get_sterile())
             + ", "
             + Individual.__str__(self)
             + ">"
@@ -59,13 +59,13 @@ class Female(Individual):
         Individual.__init__(self, lifespan, age)
         self.crispr = crispr
 
-    def getCrispr(self):
+    def get_crispr(self):
         return self.crispr
 
     def __str__(self):
         return (
             "<Female -> CRISPR = "
-            + str(self.getCrispr())
+            + str(self.get_crispr())
             + ", "
             + Individual.__str__(self)
             + ">"
