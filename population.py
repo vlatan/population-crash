@@ -43,7 +43,7 @@ class Female(Individual):
         return f"<Female -> CRISPR = {str(self.crispr)}, {super().__str__()}>"
 
 
-def buildPopulation(size, lifespan, crisprFemales):
+def create_population(size, lifespan, crispr_females):
     """
     size: desired number of individuals in the population (int).
     lifespan: max number of mating cycles of an individual (int).
@@ -51,32 +51,24 @@ def buildPopulation(size, lifespan, crisprFemales):
     -------------------------------------------------
     Returns: two lists of male and female objects.
     """
-    # males with random lifespan and age
-    males = [
-        Male(
-            lifespan=random.randrange(1, lifespan + 1),
-            age=random.randrange(1, lifespan + 1),
-        )
-        for i in range(size // 2)
-    ]
-    # females with random lifespan and age
-    females = [
-        Female(
-            lifespan=random.randrange(1, lifespan + 1),
-            age=random.randrange(1, lifespan + 1),
-        )
-        for i in range(size - len(males) - crisprFemales)
-    ]
-    # add CRISPR females in population
-    females += [
-        Female(
-            lifespan=random.randrange(1, lifespan + 1),
-            age=random.randrange(1, lifespan + 1),
-            crispr=True,
-        )
-        for i in range(crisprFemales)
-    ]
-    # shuffle females so the CRISPR females
-    # are not at the end of the list.
-    random.shuffle(females)
+
+    def span_age(lifespan):
+        span = random.randrange(1, lifespan + 1)
+        age = random.randrange(1, lifespan + 1)
+        return span, age
+
+    # males and females with random lifespan and age
+    males, females = [], []
+    for _ in range(size // 2):
+        span, age = span_age(lifespan)
+        males.append(Male(lifespan=span, age=age))
+
+        span, age = span_age(lifespan)
+        females.append(Female(lifespan=span, age=age))
+
+    # some random females have the CRISPR gene
+    for _ in range(crispr_females):
+        random_index = random.randint(0, len(females) - 1)
+        females[random_index].crispr = True
+
     return males, females
