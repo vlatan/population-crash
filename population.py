@@ -10,9 +10,6 @@ class Individual:
         self.lifespan = lifespan
         self.age = age
 
-    def increase_age(self):
-        self.age += 1
-
     @property
     def dead(self):
         """Checks whether the individual has expired"""

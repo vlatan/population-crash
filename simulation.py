@@ -40,9 +40,9 @@ def simulate(cycles, initSize, offspring, lifespan, crisprFems, popLimit):
             females += random.sample(femaleKids, numChildren)
         # increase age the end of every cycle
         for m in males:
-            m.increase_age()
+            m.age += 1
         for f in females:
-            f.increase_age()
+            f.age += 1
 
         # remove the dead individuals
         males = [m for m in males if not m.dead]
