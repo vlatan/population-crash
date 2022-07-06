@@ -45,8 +45,8 @@ def simulate(cycles, initSize, offspring, lifespan, crisprFems, popLimit):
             f.increase_age()
 
         # remove the dead individuals
-        males = [m for m in males if not m.if_dead()]
-        females = [f for f in females if not f.if_dead()]
+        males = [m for m in males if not m.dead]
+        females = [f for f in females if not f.dead]
         # check how many CRISPR females are there
         crisprF = [f for f in females if f.get_crispr()]
         # check how many sterile males are there

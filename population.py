@@ -10,27 +10,22 @@ class Individual:
         self.lifespan = lifespan
         self.age = age
 
-    def get_age(self):
-        return self.age
-
     def increase_age(self):
         self.age += 1
 
-    def get_lifespan(self):
-        return self.lifespan
-
-    def if_dead(self):
+    @property
+    def dead(self):
         """Checks whether the individual has expired"""
-        return self.get_age() > self.get_lifespan()
+        return self.age > self.lifespan
 
     def __str__(self):
         return (
             "age = "
-            + str(self.get_age())
+            + str(self.age)
             + ", lifespan = "
-            + str(self.get_lifespan())
+            + str(self.lifespan)
             + ", dead = "
-            + str(self.if_dead())
+            + str(self.dead)
         )
 
 

@@ -10,8 +10,8 @@ def reproduce(males, females, offspring, lifespan):
     children (male and female objects)."""
 
     # males and females ready for reproduction
-    readyMales = [m for m in males if not m.if_dead()]
-    readyFemales = [f for f in females if not f.if_dead()]
+    readyMales = [m for m in males if not m.dead]
+    readyFemales = [f for f in females if not f.dead]
     smaller_pop = min(len(readyMales), len(readyFemales))
     newMales, newFemales = [], []
 
