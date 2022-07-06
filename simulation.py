@@ -48,13 +48,13 @@ def simulate(cycles, initSize, offspring, lifespan, crisprFems, popLimit):
         males = [m for m in males if not m.dead]
         females = [f for f in females if not f.dead]
         # check how many CRISPR females are there
-        crisprF = [f for f in females if f.get_crispr()]
+        crisprF = [f for f in females if f.crispr]
         # check how many sterile males are there
-        sterileM = [m for m in males if m.get_sterile()]
+        sterileM = [m for m in males if m.sterile]
         # check how many healthy females are there
-        nonCrisprF = [f for f in females if not f.get_crispr()]
+        nonCrisprF = [f for f in females if not f.crispr]
         # check how many healthy males are there
-        nonSterileM = [m for m in males if not m.get_sterile()]
+        nonSterileM = [m for m in males if not m.sterile]
 
         # shuffle males and females
         random.shuffle(males)

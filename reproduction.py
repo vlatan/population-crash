@@ -18,7 +18,7 @@ def reproduce(males, females, offspring, lifespan):
     # loop through the smaller population in size
     for i in range(smaller_pop):
         # if the male is not sterile
-        if not readyMales[i].get_sterile():
+        if not readyMales[i].sterile:
             # prepare a pool of children
             children = [
                 random.choice(("male", "female"))
@@ -26,7 +26,7 @@ def reproduce(males, females, offspring, lifespan):
             ]
             # if the female parent has the CRISPR gene
             # female children have CRISPR and male children are sterile
-            if readyFemales[i].get_crispr():
+            if readyFemales[i].crispr:
                 for s in children:
                     if s == "male":
                         # new sterile male with random lifespan and age 0
@@ -44,7 +44,7 @@ def reproduce(males, females, offspring, lifespan):
                         )
             # if the female parent doesn't have the CRISPR gene
             # then children are normal
-            elif not readyFemales[i].get_crispr():
+            elif not readyFemales[i].crispr:
                 for s in children:
                     if s == "male":
                         # new normal male with random lifespan and age 0

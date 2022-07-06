@@ -29,16 +29,9 @@ class Male(Individual):
         super().__init__(lifespan, age)
         self.sterile = sterile
 
-    def get_sterile(self):
-        return self.sterile
-
     def __str__(self):
         return (
-            "<Male -> sterile = "
-            + str(self.get_sterile())
-            + ", "
-            + super().__str__()
-            + ">"
+            "<Male -> sterile = " + str(self.sterile) + ", " + super().__str__() + ">"
         )
 
 
@@ -48,16 +41,9 @@ class Female(Individual):
         super().__init__(lifespan, age)
         self.crispr = crispr
 
-    def get_crispr(self):
-        return self.crispr
-
     def __str__(self):
         return (
-            "<Female -> CRISPR = "
-            + str(self.get_crispr())
-            + ", "
-            + super().__str__()
-            + ">"
+            "<Female -> CRISPR = " + str(self.crispr) + ", " + super().__str__() + ">"
         )
 
 
