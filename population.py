@@ -26,7 +26,7 @@ class Individual:
 class Male(Individual):
     def __init__(self, lifespan, age=0, sterile=False):
         """Males are NOT sterile by default"""
-        Individual.__init__(self, lifespan, age)
+        super().__init__(lifespan, age)
         self.sterile = sterile
 
     def get_sterile(self):
@@ -37,7 +37,7 @@ class Male(Individual):
             "<Male -> sterile = "
             + str(self.get_sterile())
             + ", "
-            + Individual.__str__(self)
+            + super().__str__()
             + ">"
         )
 
@@ -45,7 +45,7 @@ class Male(Individual):
 class Female(Individual):
     def __init__(self, lifespan, age=0, crispr=False):
         """Females do NOT carry CRISPR gene by default"""
-        Individual.__init__(self, lifespan, age)
+        super().__init__(lifespan, age)
         self.crispr = crispr
 
     def get_crispr(self):
@@ -56,7 +56,7 @@ class Female(Individual):
             "<Female -> CRISPR = "
             + str(self.get_crispr())
             + ", "
-            + Individual.__str__(self)
+            + super().__str__()
             + ">"
         )
 
