@@ -53,6 +53,7 @@ def create_population(size, lifespan, crispr_females):
     """
 
     def span_age(lifespan):
+        """Returns tuple of random lifespan and age."""
         span = random.randrange(1, lifespan + 1)
         age = random.randrange(1, lifespan + 1)
         return span, age
