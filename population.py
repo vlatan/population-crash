@@ -17,12 +17,9 @@ class Individual:
 
     def __str__(self):
         return (
-            "age = "
-            + str(self.age)
-            + ", lifespan = "
-            + str(self.lifespan)
-            + ", dead = "
-            + str(self.dead)
+            f"age = {str(self.age)}, "
+            f"lifespan = {str(self.lifespan)}, "
+            f"dead = {str(self.dead)}"
         )
 
 
