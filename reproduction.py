@@ -15,17 +15,17 @@ def reproduce(males, females, offspring, lifespan):
     ready_females = [f for f in females if not f.dead]
     new_males, new_females = [], []
 
-    # loop through the smaller population in size
+    # loop through mating pairs
     for male, female in zip(ready_males, ready_females):
 
         # if male sterile skip this pair
         if male.sterile:
             continue
 
-        # prepare a pool of children
+        # prepare a pool of random children sexes for this pair
         children = [
             random.choice(("male", "female"))
-            for child in range(random.randrange(offspring + 1))
+            for _ in range(random.randrange(offspring + 1))
         ]
 
         # if the female parent has the CRISPR gene
