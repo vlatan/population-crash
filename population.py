@@ -48,12 +48,13 @@ class Female(Individual):
 
 
 def buildPopulation(size, lifespan, crisprFemales):
-    """size: desired number of individuals in the population (int).
+    """
+    size: desired number of individuals in the population (int).
     lifespan: max number of mating cycles of an individual (int).
     crisprFemales: number of initial females with CRIPSR gene (int).
     -------------------------------------------------
-    Returns: two lists of male and female objects."""
-
+    Returns: two lists of male and female objects.
+    """
     # males with random lifespan and age
     males = [
         Male(

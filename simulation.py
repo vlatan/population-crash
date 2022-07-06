@@ -4,7 +4,8 @@ from reproduction import *
 
 
 def simulate(cycles, initSize, offspring, lifespan, crisprFems, popLimit):
-    """cycles: the number of cycles this simulation will run.
+    """
+    cycles: the number of cycles this simulation will run.
     initSize: the initial size of the population.
     offspring: max number of possible children per reproduction.
     lifespan: maximum lifespan of an individual.
@@ -12,8 +13,8 @@ def simulate(cycles, initSize, offspring, lifespan, crisprFems, popLimit):
     popLimit: the maximum size this population can get.
     ---------------------------------------------------
     Records the relevant numbers after every cycle.
-    Returns the numbers for each population category in a dict."""
-
+    Returns the numbers for each population category in a dict.
+    """
     # build the population
     males, females = buildPopulation(initSize, lifespan, crisprFems)
 

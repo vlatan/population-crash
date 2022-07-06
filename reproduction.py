@@ -3,12 +3,13 @@ from population import *
 
 
 def reproduce(males, females, offspring, lifespan):
-    """males, females: lists of male and female objects.
+    """
+    males, females: lists of male and female objects.
     offspring: max number of possible children per reproduction (int).
     --------------------------------------------------------
     Performs one cycle of mating which returns two lists of
-    children (male and female objects)."""
-
+    children (male and female objects).
+    """
     # males and females ready for reproduction
     readyMales = [m for m in males if not m.dead]
     readyFemales = [f for f in females if not f.dead]
