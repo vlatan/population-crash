@@ -12,7 +12,7 @@ class Individual:
 
     @property
     def dead(self):
-        """Checks whether the individual has expired"""
+        """Checks whether the individual has expired."""
         return self.age > self.lifespan
 
     def __str__(self):
@@ -25,22 +25,22 @@ class Individual:
 
 class Male(Individual):
     def __init__(self, lifespan, age=0, sterile=False):
-        """Males are NOT sterile by default"""
+        """Males are NOT sterile by default."""
         super().__init__(lifespan, age)
         self.sterile = sterile
 
     def __str__(self):
-        return f"<Male -> sterile = {str(self.sterile)}, {super().__str__()}>"
+        return f"Male -> sterile = {str(self.sterile)}, {super().__str__()}"
 
 
 class Female(Individual):
     def __init__(self, lifespan, age=0, crispr=False):
-        """Females do NOT carry CRISPR gene by default"""
+        """Females do NOT carry CRISPR gene by default."""
         super().__init__(lifespan, age)
         self.crispr = crispr
 
     def __str__(self):
-        return f"<Female -> CRISPR = {str(self.crispr)}, {super().__str__()}>"
+        return f"Female -> CRISPR = {str(self.crispr)}, {super().__str__()}"
 
 
 def create_population(size, lifespan, crispr_females):
