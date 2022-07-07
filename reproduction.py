@@ -2,57 +2,41 @@ import random
 from population import *
 
 
-def reproduce(males, females, offspring, lifespan):
+def produce_kids(sexes, sterile=False, crispr=False):
+    """Produce number of children based on their sex and genes."""
+    males = [Male(age=0, sterile=sterile) for sex in sexes if sex == "Male"]
+    females = [Female(age=0, crispr=crispr) for sex in sexes if sex == "Female"]
+    return males, females
+
+
+def reproduce(males, females):
     """
     males, females: lists of male and female objects.
-    offspring: max number of possible children per reproduction (int).
     --------------------------------------------------------
     Performs one cycle of mating which returns two lists of
-    children (male and female objects).
+    children (male and female objects with age = 0).
     """
-    # males and females ready for reproduction
-    ready_males = [m for m in males if not m.dead]
-    ready_females = [f for f in females if not f.dead]
-    new_males, new_females = [], []
+    male_children, female_children = [], []
 
-    # loop through mating pairs
-    for male, female in zip(ready_males, ready_females):
-
-        # if male is sterile skip this pair
-        if male.sterile:
+    # loop through females
+    for female in females:
+        # randomly choose partners for this female
+        partners = random.choices(males, k=random.randrange(1, MAX_MALE_PARTNERS))
+        # if all partners are sterile this female will not produce offspring
+        if all((partner.sterile for partner in partners)):
             continue
 
-        # prepare a pool of random children sexes for this pair
-        children = [
-            random.choice(("male", "female"))
-            for _ in range(random.randrange(offspring + 1))
-        ]
+        # prepare a pool of random sexes for this female's children
+        num_kids = random.randrange(MAX_OFFSPRING)
+        sexes = [random.choice(("male", "female")) for _ in range(num_kids)]
 
-        # if the female parent has the CRISPR gene
-        # female children have CRISPR and male children are sterile
-        if female.crispr:
-            for s in children:
-                if s == "male":
-                    # new sterile male with random lifespan and age 0
-                    new_males.append(
-                        Male(lifespan=random.randrange(1, lifespan + 1), sterile=True)
-                    )
-                if s == "female":
-                    # new CRISPR female with random lifespan and age 0
-                    new_females.append(
-                        Female(lifespan=random.randrange(1, lifespan + 1), crispr=True)
-                    )
         # if the female parent doesn't have the CRISPR gene
-        # then children are normal
-        elif not female.crispr:
-            for s in children:
-                if s == "male":
-                    # new normal male with random lifespan and age 0
-                    new_males.append(Male(lifespan=random.randrange(1, lifespan + 1)))
-                if s == "female":
-                    # new normal female with random lifespan and age 0
-                    new_females.append(
-                        Female(lifespan=random.randrange(1, lifespan + 1))
-                    )
+        male_kids, female_kids = produce_kids(sexes)
+        # if the female parent has the CRISPR gene
+        if female.crispr:
+            male_kids, female_kids = produce_kids(sexes, sterile=True, crispr=True)
 
-    return new_males, new_females
+        male_children += male_kids
+        female_children += female_kids
+
+    return male_children, female_children
