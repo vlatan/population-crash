@@ -32,9 +32,9 @@ class Individual:
 
 
 class Male(Individual):
-    def __init__(self, sterile=False):
+    def __init__(self, age=None, sterile=False):
         """Males are NOT sterile by default."""
-        super().__init__()
+        super().__init__(age)
         self.sterile = sterile
 
     def __str__(self):
@@ -42,9 +42,9 @@ class Male(Individual):
 
 
 class Female(Individual):
-    def __init__(self, crispr=False):
+    def __init__(self, age=None, crispr=False):
         """Females do NOT carry CRISPR gene by default."""
-        super().__init__()
+        super().__init__(age)
         self.crispr = crispr
 
     def __str__(self):
