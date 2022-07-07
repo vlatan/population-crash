@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from simulation import *
 
 
-def plot(nonSterile, nonCrispr, crispr, sterile, totalPop):
+def plot(non_sterile, non_crispr, crispr, sterile, total_pop):
     """Plots various different population categories."""
     plt.style.use("fivethirtyeight")
     plt.rcParams["figure.figsize"] = [16, 9]
@@ -20,11 +20,11 @@ def plot(nonSterile, nonCrispr, crispr, sterile, totalPop):
     # plt.rcParams['savefig.dpi'] = 80
     # plt.rcParams['figure.dpi'] = 80
 
-    plt.plot(nonSterile, lw=2, label="Healthy Males")
-    plt.plot(nonCrispr, lw=2, label="Healthy Females")
+    plt.plot(non_sterile, lw=2, label="Healthy Males")
+    plt.plot(non_crispr, lw=2, label="Healthy Females")
     plt.plot(crispr, lw=2, label="CRISPR Females")
     plt.plot(sterile, lw=2, label="Sterile Males")
-    # plt.plot(totalPop, label="Total population")
+    # plt.plot(total_pop, label="Total population")
     plt.xlabel("Cycles")
     plt.ylabel("Population")
     plt.title("Population with CRISPR introduced")
@@ -33,19 +33,5 @@ def plot(nonSterile, nonCrispr, crispr, sterile, totalPop):
 
 
 if __name__ == "__main__":
-    results = simulate(
-        cycles=400,
-        initSize=1900,
-        offspring=12,
-        lifespan=4,
-        crisprFems=500,
-        popLimit=2000,
-    )
-
-    plot(
-        results["nonSterile"],
-        results["nonCrispr"],
-        results["crispr"],
-        results["sterile"],
-        results["totalPop"],
-    )
+    results = simulate()
+    plot(**results)
