@@ -18,7 +18,7 @@ def reproduce(males, females, offspring, lifespan):
     # loop through mating pairs
     for male, female in zip(ready_males, ready_females):
 
-        # if male sterile skip this pair
+        # if male is sterile skip this pair
         if male.sterile:
             continue
 

@@ -1,5 +1,12 @@
 import random
 
+CYCLES = 400
+INITIAL_POPULATION = 1900
+MAX_OFFSPRING = 12
+MAX_LIFESPAN = 4
+CRISPR_FEMALES = 500
+POPULATION_LIMIT = 2000
+
 
 class Individual:
     def __init__(self, lifespan, age=0):
