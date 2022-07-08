@@ -37,7 +37,7 @@ def reproduce(males, females):
         if female.crispr:
             male_kids, female_kids = produce_kids(sexes, sterile=True, crispr=True)
 
-        # add children to the pool of children
+        # add this female's children to the pool of population's children
         male_children += male_kids
         female_children += female_kids
 
