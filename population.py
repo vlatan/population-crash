@@ -5,7 +5,7 @@ INITIAL_POPULATION = 1000
 MAX_OFFSPRING = 4
 MAX_LIFESPAN = 2
 MAX_MALE_PARTNERS = 4
-CRISPR_FEMALES = 50
+CRISPR_FEMALES = 0.0032
 
 
 class Individual:
@@ -57,10 +57,11 @@ def create_population():
     half_size = INITIAL_POPULATION // 2
     males = [Male() for _ in range(half_size)]
     females = [Female() for _ in range(half_size)]
+    females_num = len(females)
 
     # some number of random females have the CRISPR gene
-    for _ in range(CRISPR_FEMALES):
-        random_index = random.randint(0, len(females) - 1)
+    for _ in range(int(CRISPR_FEMALES * females_num)):
+        random_index = random.randint(0, females_num - 1)
         females[random_index].crispr = True
 
     return males, females
