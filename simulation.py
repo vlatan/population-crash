@@ -1,6 +1,6 @@
 import random
-from population import *
-from reproduction import *
+import population as pop
+import reproduction as rep
 
 
 def simulate():
@@ -9,17 +9,17 @@ def simulate():
     Returns the numbers for each population category in a dict.
     """
     # build the population
-    males, females = create_population()
+    males, females = pop.create_population()
 
     # record the initial numbers
     population = len(males) + len(females)
-    total_pop, crispr, sterile = [population], [CRISPR_FEMALES], [0]
-    non_sterile, non_crispr = [0], [len(females) - CRISPR_FEMALES]
+    total_pop, crispr, sterile = [population], [pop.CRISPR_FEMALES], [0]
+    non_sterile, non_crispr = [0], [len(females) - pop.CRISPR_FEMALES]
 
     # go through the given number of cycles
-    for _ in range(CYCLES):
+    for _ in range(pop.CYCLES):
         # produce offspring
-        male_kids, female_kids = reproduce(males, females)
+        male_kids, female_kids = rep.reproduce(males, females)
         # add children to population
         males += male_kids
         females += female_kids
@@ -29,7 +29,7 @@ def simulate():
             m.age += 1
 
         # increase the age of the females and introduce CRISPR in some
-        count = int((INITIAL_POPULATION // 2) * CRISPR_FEMALES)
+        count = int((pop.INITIAL_POPULATION // 2) * pop.CRISPR_FEMALES)
         for f in females:
             f.age += 1
             if count > 0 and not f.dead and not f.crispr:

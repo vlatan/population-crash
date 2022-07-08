@@ -1,11 +1,11 @@
 import random
-from population import *
+import population as pop
 
 
 def produce_kids(sexes, sterile=False, crispr=False):
     """Produce number of children based on their sex and genes."""
-    males = [Male(age=0, sterile=sterile) for sex in sexes if sex == "male"]
-    females = [Female(age=0, crispr=crispr) for sex in sexes if sex == "female"]
+    males = [pop.Male(age=0, sterile=sterile) for sex in sexes if sex == "male"]
+    females = [pop.Female(age=0, crispr=crispr) for sex in sexes if sex == "female"]
     return males, females
 
 
@@ -21,14 +21,14 @@ def reproduce(males, females):
     # loop through females
     for female in females:
         # randomly choose partners for this female
-        partners_num = min(len(males), random.randrange(1, MAX_MALE_PARTNERS))
+        partners_num = min(len(males), random.randrange(1, pop.MAX_MALE_PARTNERS))
         partners = random.choices(males, k=partners_num)
         # if all partners are sterile this female will not produce offspring
         if all((partner.sterile for partner in partners)):
             continue
 
         # prepare a pool of random sexes for this female's children
-        num_kids = random.randrange(1, MAX_OFFSPRING)
+        num_kids = random.randrange(1, pop.MAX_OFFSPRING)
         sexes = [random.choice(("male", "female")) for _ in range(num_kids)]
 
         # if the female parent doesn't have the CRISPR gene

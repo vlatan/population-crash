@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from simulation import *
+import simulation as sim
 
 
 def plot(non_sterile, non_crispr, crispr, sterile, total_pop):
@@ -33,5 +33,5 @@ def plot(non_sterile, non_crispr, crispr, sterile, total_pop):
 
 
 if __name__ == "__main__":
-    results = simulate()
+    results = sim.simulate()
     plot(**results)
