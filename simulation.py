@@ -24,11 +24,17 @@ def simulate():
         males += male_kids
         females += female_kids
 
-        # increase the age of the individuals
+        # increase the age of the males
         for m in males:
             m.age += 1
+
+        # increase the age of the females and introduce CRISPR in some
+        count = int((INITIAL_POPULATION // 2) * CRISPR_FEMALES)
         for f in females:
             f.age += 1
+            if count > 0 and not f.dead and not f.crispr:
+                f.crispr = True
+                count -= 1
 
         # remove the dead individuals
         males = [m for m in males if not m.dead]
