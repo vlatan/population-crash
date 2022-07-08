@@ -18,15 +18,11 @@ def simulate():
 
     # go through the given number of cycles
     for _ in range(CYCLES):
-        # if population hasn't reached the limit
-        if population < POPULATION_LIMIT:
-            # produce offspring
-            male_kids, female_kids = reproduce(males, females)
-            # add surviving children to fit the population
-            rest = (POPULATION_LIMIT - population) // 2
-            num_kids = min(rest, len(male_kids), len(female_kids))
-            males += random.sample(male_kids, num_kids)
-            females += random.sample(female_kids, num_kids)
+        # produce offspring
+        male_kids, female_kids = reproduce(males, females)
+        # add children to population
+        males += male_kids
+        females += female_kids
 
         # increase the age of the individuals
         for m in males:
