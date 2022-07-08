@@ -24,7 +24,7 @@ def plot(non_sterile, non_crispr, crispr, sterile, total_pop):
     plt.plot(non_crispr, lw=2, label="Healthy Females")
     plt.plot(crispr, lw=2, label="CRISPR Females")
     plt.plot(sterile, lw=2, label="Sterile Males")
-    # plt.plot(total_pop, label="Total population")
+    # plt.plot(total_pop, lw=2, label="Total population")
     plt.xlabel("Cycles")
     plt.ylabel("Population")
     plt.title("Population with CRISPR introduced")
