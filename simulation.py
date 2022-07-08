@@ -32,9 +32,10 @@ def simulate():
         count = int((pop.INITIAL_POPULATION // 2) * pop.CRISPR_FEMALES)
         for f in females:
             f.age += 1
-            if count > 0 and not f.dead and not f.crispr:
-                f.crispr = True
-                count -= 1
+            if count <= 0 or f.dead or f.crispr:
+                continue
+            f.crispr = True
+            count -= 1
 
         # remove the dead individuals
         males = [m for m in males if not m.dead]
