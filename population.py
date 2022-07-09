@@ -1,4 +1,5 @@
 import random
+from dataclasses import dataclass
 
 CYCLES = 100
 INITIAL_POPULATION = 1000
@@ -8,46 +9,27 @@ MAX_MALE_PARTNERS = 4
 CRISPR_FEMALES = 0.004
 
 
+@dataclass
 class Individual:
-    def __init__(self, age=None):
-        """
-        The lifespan determines the maximum mating cycles for this individual.
-        The age is elapsed mating cycles so far.
-        """
-        self.lifespan = random.randrange(1, MAX_LIFESPAN)
-        self.age = random.randrange(self.lifespan) if age is None else age
+    lifespan: int = random.randrange(1, MAX_LIFESPAN)
+    age: int = random.randrange(lifespan)
 
     @property
     def dead(self):
         """Checks whether the individual has expired."""
         return self.age > self.lifespan
 
-    def __str__(self):
-        return (
-            f"age = {str(self.age)}, "
-            f"lifespan = {str(self.lifespan)}, "
-            f"dead = {str(self.dead)}"
-        )
 
-
+@dataclass
 class Male(Individual):
-    def __init__(self, age=None, sterile=False):
-        """Males are NOT sterile by default."""
-        super().__init__(age)
-        self.sterile = sterile
-
-    def __str__(self):
-        return f"Male -> sterile = {str(self.sterile)}, {super().__str__()}"
+    # Males are NOT sterile by default.
+    sterile: bool = False
 
 
+@dataclass
 class Female(Individual):
-    def __init__(self, age=None, crispr=False):
-        """Females do NOT carry CRISPR gene by default."""
-        super().__init__(age)
-        self.crispr = crispr
-
-    def __str__(self):
-        return f"Female -> CRISPR = {str(self.crispr)}, {super().__str__()}"
+    # Females do not carry edited gene by default.
+    crispr: bool = False
 
 
 def create_population():
