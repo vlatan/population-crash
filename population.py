@@ -28,7 +28,7 @@ class Male(Individual):
 
 @dataclass
 class Female(Individual):
-    # Females do not carry edited gene by default.
+    # Females do NOT carry edited gene by default.
     crispr: bool = False
 
 
