@@ -1,12 +1,13 @@
 import random
 from dataclasses import dataclass
 
-CYCLES = 100
-INITIAL_POPULATION = 1000
-MAX_OFFSPRING = 4
-MAX_LIFESPAN = 2
+CYCLES = 120
+INITIAL_POPULATION = 2000
+MAX_OFFSPRING = 6
+MAX_LIFESPAN = 20
 MAX_MALE_PARTNERS = 4
-CRISPR_FEMALES = 0.004
+CRISPR_FEMALES = 0.016
+POPULATION_LIMIT = 3000
 
 
 @dataclass
@@ -17,7 +18,7 @@ class Individual:
     @property
     def dead(self):
         """Checks whether the individual has expired."""
-        return self.age > self.lifespan
+        return self.age >= self.lifespan
 
 
 @dataclass
