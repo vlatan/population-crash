@@ -50,6 +50,7 @@ def simulate():
             f.crispr = True
             count -= 1
 
+        # check sterile males and crispr females numbers
         crispr_fems = [f for f in females if f.crispr]
         sterile_males = [m for m in males if m.sterile]
 
