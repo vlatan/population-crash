@@ -31,11 +31,12 @@ of a member of that population is 4 years then the maximum lifespan is represent
 * **MAX_LIFESPAN** - maximum lifespan of the species (number of female reproductive cycles).
 * **MAX_MALE_PARTNERS** - maximum number of partners female can have per cycle.
 * **CRISPR_FEMALES** - percentage of females with CRISPR edited gene.
+* **POPULATION_LIMIT** - population limit which external forces (predators, diseases, etc.) keep in check.
 
 So, at every cycle a female mates with a number of random partners. The female gives birth to a random number of male and female children. If a female parent carries the CRISPR edited gene
 and at least one of her partners was not sterile they will produce female children that carry the
 CRISPR gene and male children that are sterile. Otherwise if the female parent has no CRISPR gene they will produce healthy offspring.
 
-This simulation, as it is, shows that in order to crash a population you need to introduce as little as 0.4% females with edited genes in every cycle.
+This simulation, as it is, shows that in order to crash a population, in every cycle you need to introduce as little as 1.6% females of the initial female population with edited genes .
 
-You must first assure though that the constants are adjusted as such that the population will not crush by itself due to death rate being bigger than the birth rate.
+You must first assure though that the constants are adjusted as such that the population will not crush by itself due to death rate being higher than the birth rate.
