@@ -24,24 +24,31 @@ def simulate():
         males += male_kids
         females += female_kids
 
-        # increase the age of the males
+        # increase the age of males and females
         for m in males:
             m.age += 1
-
-        # increase the age of the females and introduce CRISPR in some
-        count = int((pop.INITIAL_POPULATION // 2) * pop.CRISPR_FEMALES)
         for f in females:
             f.age += 1
-            if count <= 0 or f.dead or f.crispr:
-                continue
-            f.crispr = True
-            count -= 1
 
         # remove the dead individuals
         males = [m for m in males if not m.dead]
         females = [f for f in females if not f.dead]
+
+        # remove extra population if any to stay within the population limit
+        if (extra := len(males) + len(females) - pop.POPULATION_LIMIT) > 0:
+            males = random.sample(males, k=len(males) - extra // 2)
+            females = random.sample(females, k=len(females) - extra // 2)
+
         # refresh the population number
         population = len(males) + len(females)
+
+        # introduce CRISPR in some of the females
+        count = int((pop.INITIAL_POPULATION // 2) * pop.CRISPR_FEMALES)
+        for f in females:
+            if count <= 0 or f.crispr:
+                continue
+            f.crispr = True
+            count -= 1
 
         crispr_fems = [f for f in females if f.crispr]
         sterile_males = [m for m in males if m.sterile]
