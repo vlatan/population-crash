@@ -1,15 +1,16 @@
 import random
 import population as pop
+from typing import List
 
 
-def produce_kids(sexes, sterile=False, crispr=False):
+def produce_kids(sexes: List[str], sterile: bool = False, crispr: bool = False):
     """Produce number of children based on their sex and genes."""
     males = [pop.Male(age=0, sterile=sterile) for sex in sexes if sex == "male"]
     females = [pop.Female(age=0, crispr=crispr) for sex in sexes if sex == "female"]
     return males, females
 
 
-def reproduce(males, females):
+def reproduce(males: pop.Males, females: pop.Females) -> pop.Population:
     """
     males, females: lists of male and female objects.
     --------------------------------------------------------
