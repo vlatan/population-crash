@@ -1,3 +1,4 @@
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import simulation as sim
 
@@ -5,20 +6,20 @@ import simulation as sim
 def plot(non_sterile, non_crispr, crispr, sterile, total_pop):
     """Plots various different population categories."""
     plt.style.use("fivethirtyeight")
-    plt.rcParams["figure.figsize"] = [16, 9]
-    plt.rcParams["axes.titlepad"] = 25
-    plt.rcParams["axes.titlesize"] = 15
-    plt.rcParams["axes.titleweight"] = 700
-    plt.rcParams["axes.labelpad"] = 25
-    plt.rcParams["axes.labelsize"] = 14
-    plt.rcParams["axes.labelweight"] = 700
-    plt.rcParams["legend.fontsize"] = 14
-    plt.rcParams["xtick.labelsize"] = 14
-    plt.rcParams["ytick.labelsize"] = 14
-    plt.rcParams["savefig.bbox"] = "tight"
-    plt.rcParams["savefig.pad_inches"] = 0.8
-    # plt.rcParams['savefig.dpi'] = 80
-    # plt.rcParams['figure.dpi'] = 80
+    mpl.rcParams["figure.figsize"] = [16, 9]
+    mpl.rcParams["axes.titlepad"] = 25
+    mpl.rcParams["axes.titlesize"] = 15
+    mpl.rcParams["axes.titleweight"] = 700
+    mpl.rcParams["axes.labelpad"] = 25
+    mpl.rcParams["axes.labelsize"] = 14
+    mpl.rcParams["axes.labelweight"] = 700
+    mpl.rcParams["legend.fontsize"] = 14
+    mpl.rcParams["xtick.labelsize"] = 14
+    mpl.rcParams["ytick.labelsize"] = 14
+    mpl.rcParams["savefig.bbox"] = "tight"
+    mpl.rcParams["savefig.pad_inches"] = 0.8
+    # mpl.rcParams['savefig.dpi'] = 80
+    # mpl.rcParams['figure.dpi'] = 80
 
     plt.plot(non_sterile, lw=2, label="Healthy Males")
     plt.plot(non_crispr, lw=2, label="Healthy Females")
