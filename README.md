@@ -45,4 +45,4 @@ You must first assure though that the constants are adjusted as such that the po
 
 ## License
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](/LICENSE "License: MIT")
