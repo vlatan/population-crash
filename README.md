@@ -42,3 +42,7 @@ CRISPR gene and male children that are sterile. Otherwise if the female parent h
 This simulation, as it is, shows that in order to crash a population, in every cycle you need to introduce as little as 1.6% females of the initial female population with edited genes.
 
 You must first assure though that the constants are adjusted as such that the population will not crush by itself due to death rate being higher than the birth rate.
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/)
