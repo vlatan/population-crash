@@ -9,7 +9,7 @@ class Individual:
     age: int = random.randrange(lifespan)
 
     @property
-    def dead(self):
+    def dead(self) -> bool:
         """Checks whether the individual has expired."""
         return self.age >= self.lifespan
 
