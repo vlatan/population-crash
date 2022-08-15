@@ -1,10 +1,9 @@
 import random
 import population as pop
 import reproduction as rep
-from typing import Dict, List, Union
 
 
-def simulate() -> Dict[str, Union[List[float], List[int]]]:
+def simulate() -> dict[str, list[float] | list[int]]:
     """
     Records the relevant numbers after every cycle.
     Returns the numbers for each population category in a dict.

@@ -1,6 +1,5 @@
 import random
 from dataclasses import dataclass
-from typing import Tuple, List
 
 CYCLES = 120
 INITIAL_POPULATION = 2000
@@ -34,9 +33,9 @@ class Female(Individual):
     crispr: bool = False
 
 
-Males = List[Male]
-Females = List[Female]
-Population = Tuple[Males, Females]
+Males = list[Male]
+Females = list[Female]
+Population = tuple[list[Male], list[Female]]
 
 
 def create_population() -> Population:

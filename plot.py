@@ -2,9 +2,19 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import simulation as sim
 
+PlotValue = list[float] | list[int]
 
-def plot(non_sterile, non_crispr, crispr, sterile, total_pop):
+
+def plot(
+    non_sterile: PlotValue,
+    non_crispr: PlotValue,
+    crispr: PlotValue,
+    sterile: PlotValue,
+    total_pop: PlotValue,
+) -> None:
+
     """Plots various different population categories."""
+
     plt.style.use("fivethirtyeight")
     mpl.rcParams["figure.figsize"] = [16, 9]
     mpl.rcParams["figure.dpi"] = 90
