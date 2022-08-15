@@ -1,6 +1,7 @@
 import random
 import population as pop
 import reproduction as rep
+import config
 
 
 def simulate() -> dict[str, list[float] | list[int]]:
@@ -13,11 +14,11 @@ def simulate() -> dict[str, list[float] | list[int]]:
 
     # record the initial numbers
     population = len(males) + len(females)
-    total_pop, crispr, sterile = [population], [pop.CRISPR_FEMALES], [0]
-    non_sterile, non_crispr = [0], [len(females) - pop.CRISPR_FEMALES]
+    total_pop, crispr, sterile = [population], [config.CRISPR_FEMALES], [0]
+    non_sterile, non_crispr = [0], [len(females) - config.CRISPR_FEMALES]
 
     # go through the given number of cycles
-    for _ in range(pop.CYCLES):
+    for _ in range(config.CYCLES):
         # produce offspring
         male_kids, female_kids = rep.reproduce(males, females)
         # add children to population
@@ -35,7 +36,7 @@ def simulate() -> dict[str, list[float] | list[int]]:
         females = [f for f in females if not f.dead]
 
         # remove extra population if any to stay within the population limit
-        if (extra := len(males) + len(females) - pop.POPULATION_LIMIT) > 0:
+        if (extra := len(males) + len(females) - config.POPULATION_LIMIT) > 0:
             males = random.sample(males, k=len(males) - extra // 2)
             females = random.sample(females, k=len(females) - extra // 2)
 
@@ -43,7 +44,7 @@ def simulate() -> dict[str, list[float] | list[int]]:
         population = len(males) + len(females)
 
         # introduce CRISPR in some of the females
-        count = int((pop.INITIAL_POPULATION // 2) * pop.CRISPR_FEMALES)
+        count = int((config.INITIAL_POPULATION // 2) * config.CRISPR_FEMALES)
         for f in females:
             if count <= 0 or f.crispr:
                 continue
