@@ -2,12 +2,9 @@ import random
 import population as pop
 import reproduction as rep
 import config
-from typing import TypeAlias
-
-Vector: TypeAlias = list[float] | list[int]
 
 
-def simulate() -> dict[str, Vector]:
+def simulate() -> dict[str, config.Vector]:
     """
     Records the relevant numbers after every cycle.
     Returns the numbers for each population category in a dict.

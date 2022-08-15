@@ -1,14 +1,14 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-import simulation as sim
+import config
 
 
 def plot(
-    non_sterile: sim.Vector,
-    non_crispr: sim.Vector,
-    crispr: sim.Vector,
-    sterile: sim.Vector,
-    total_pop: sim.Vector,
+    non_sterile: config.Vector,
+    non_crispr: config.Vector,
+    crispr: config.Vector,
+    sterile: config.Vector,
+    total_pop: config.Vector,
 ) -> None:
 
     """Plots various different population categories."""
@@ -37,8 +37,3 @@ def plot(
     plt.legend()
     plt.tight_layout(pad=2.5)
     plt.show()
-
-
-if __name__ == "__main__":
-    results = sim.simulate()
-    plot(**results)
