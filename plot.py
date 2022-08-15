@@ -2,15 +2,13 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import simulation as sim
 
-PlotValue = list[float] | list[int]
-
 
 def plot(
-    non_sterile: PlotValue,
-    non_crispr: PlotValue,
-    crispr: PlotValue,
-    sterile: PlotValue,
-    total_pop: PlotValue,
+    non_sterile: sim.Vector,
+    non_crispr: sim.Vector,
+    crispr: sim.Vector,
+    sterile: sim.Vector,
+    total_pop: sim.Vector,
 ) -> None:
 
     """Plots various different population categories."""
