@@ -31,8 +31,8 @@ def plot(
     plt.plot(crispr, lw=2, label="CRISPR Females")
     plt.plot(sterile, lw=2, label="Sterile Males")
     # plt.plot(total_pop, lw=2, label="Total population")
-    plt.xlabel("Cycles")
-    plt.ylabel("Population")
+    plt.xlabel("Cycles")  # type: ignore
+    plt.ylabel("Population")  # type: ignore
     plt.title("Population with CRISPR introduced")
     plt.legend()
     plt.tight_layout(pad=2.5)
