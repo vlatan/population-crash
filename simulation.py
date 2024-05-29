@@ -1,10 +1,13 @@
+import time
 import random
 import population as pop
 import reproduction as rep
 import config
+import streamlit as st
+import pandas as pd
 
 
-def simulate() -> dict[str, config.Vector]:
+def simulate() -> dict[str, config.Vector] | None:
     """
     Records the relevant numbers after every cycle.
     Returns the numbers for each population category in a dict.
@@ -15,7 +18,22 @@ def simulate() -> dict[str, config.Vector]:
     # record the initial numbers
     population = len(males) + len(females)
     total_pop, crispr, sterile = [population], [config.CRISPR_FEMALES], [0]
-    non_sterile, non_crispr = [0], [len(females) - config.CRISPR_FEMALES]
+    non_sterile, non_crispr = [len(males)], [len(females) - config.CRISPR_FEMALES]
+
+    df = pd.DataFrame(
+        [
+            {
+                "Healthy Males": non_sterile[0],
+                "Healthy Females": non_crispr[0],
+                "Sterile Males": sterile[0],
+                "CRISPR Females": crispr[0],
+            }
+        ],
+        dtype=float,
+    )
+
+    chart = st.line_chart(df, height=500, use_container_width=True)
+    table = st.dataframe(df)
 
     # go through the given number of cycles
     for _ in range(config.CYCLES):
@@ -61,6 +79,22 @@ def simulate() -> dict[str, config.Vector]:
         sterile.append(len(sterile_males))  # STERILE males
         non_sterile.append(len(males) - len(sterile_males))  # NON STERILE males
         total_pop.append(population)  # total population
+
+        df = pd.DataFrame(
+            [
+                {
+                    "Healthy Males": non_sterile[-1],
+                    "Healthy Females": non_crispr[-1],
+                    "Sterile Males": sterile[-1],
+                    "CRISPR Females": crispr[-1],
+                }
+            ],
+            dtype=float,
+        )
+
+        time.sleep(0.05)
+        table.add_rows(df)  # type: ignore
+        chart.add_rows(df)
 
         # shuffle males and females
         random.shuffle(males)
