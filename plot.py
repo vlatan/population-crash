@@ -10,7 +10,6 @@ def plot(
     sterile: config.Vector,
     total_pop: config.Vector,
 ) -> None:
-
     """Plots various different population categories."""
 
     plt.style.use("fivethirtyeight")

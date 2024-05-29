@@ -6,7 +6,6 @@ import config
 def produce_kids(
     sexes: list[str], sterile: bool = False, crispr: bool = False
 ) -> pop.Population:
-
     """Produce number of children based on their sex and genes."""
 
     males = [pop.Male(age=0, sterile=sterile) for sex in sexes if sex == "male"]
