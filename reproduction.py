@@ -1,6 +1,7 @@
 import random
-import population as pop
+
 import config
+import population as pop
 
 
 def produce_kids(

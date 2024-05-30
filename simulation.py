@@ -1,10 +1,11 @@
 import time
 import random
+import pandas as pd
+import streamlit as st
+
+import config
 import population as pop
 import reproduction as rep
-import config
-import streamlit as st
-import pandas as pd
 
 
 def simulate() -> dict[str, config.Vector] | None:

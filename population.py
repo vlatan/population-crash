@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass
+
 import config
-from typing import TypeAlias
 
 
 @dataclass
@@ -27,9 +27,9 @@ class Female(Individual):
     crispr: bool = False
 
 
-Males: TypeAlias = list[Male]
-Females: TypeAlias = list[Female]
-Population: TypeAlias = tuple[list[Male], list[Female]]
+type Males = list[Male]
+type Females = list[Female]
+type Population = tuple[list[Male], list[Female]]
 
 
 def create_population() -> Population:

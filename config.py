@@ -1,5 +1,3 @@
-from typing import TypeAlias
-
 LIFE_CYCLES = 120
 INITIAL_POPULATION = 2000
 MAX_POPULATION = 3000
@@ -8,4 +6,4 @@ MAX_LIFESPAN = 20
 MAX_MALE_PARTNERS = 4
 CRISPR_FEMALES_PERCENTAGE = 0.016
 
-Vector: TypeAlias = list[float] | list[int]
+type Vector = list[float] | list[int]
