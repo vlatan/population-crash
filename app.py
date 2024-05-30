@@ -28,7 +28,4 @@ def create_app() -> None:
 
     st.sidebar.divider()
 
-    run_button = st.sidebar.button("Run")
-
-    if run_button:
-        results = sim.simulate()
+    sim.simulate()

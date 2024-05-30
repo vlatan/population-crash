@@ -35,11 +35,19 @@ def simulate() -> dict[str, config.Vector] | None:
         dtype=float,
     )
 
+    df.index.name = "Life Cycles"
+
     chart = st.line_chart(df, height=500, use_container_width=True)
     table = st.dataframe(df, use_container_width=True)
 
+    progress_bar = st.sidebar.progress(0)
+    status_text = st.sidebar.text("Simulation 0% complete")
+
+    if not st.sidebar.button("Run Simulation"):
+        return
+
     # go through the given number of cycles
-    for _ in range(config.LIFE_CYCLES):
+    for i in range(config.LIFE_CYCLES):
         # produce offspring
         male_kids, female_kids = rep.reproduce(males, females)
         # add children to population
@@ -104,6 +112,10 @@ def simulate() -> dict[str, config.Vector] | None:
         # shuffle males and females
         random.shuffle(males)
         random.shuffle(females)
+
+        percentage_complete = round(((i + 1) / config.LIFE_CYCLES) * 100)
+        progress_bar.progress(percentage_complete)
+        status_text.text(f"Simulation {percentage_complete}% complete")
 
     return dict(
         crispr=crispr,
