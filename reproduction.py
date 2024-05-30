@@ -37,11 +37,12 @@ def reproduce(males: pop.Males, females: pop.Females) -> pop.Population:
         num_kids = random.randrange(1, config.MAX_OFFSPRING)
         sexes = [random.choice(("male", "female")) for _ in range(num_kids)]
 
-        # if the female parent doesn't have the CRISPR gene
-        male_kids, female_kids = produce_kids(sexes)
-        # if the female parent has the CRISPR gene
-        if female.crispr:
-            male_kids, female_kids = produce_kids(sexes, sterile=True, crispr=True)
+        # produce kids based on whether the female parent has the CRISPR gene or not
+        male_kids, female_kids = (
+            produce_kids(sexes, sterile=True, crispr=True)
+            if female.crispr
+            else produce_kids(sexes)
+        )
 
         # add this female's children to the pool of population's children
         male_children += male_kids
