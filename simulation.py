@@ -36,7 +36,7 @@ def simulate() -> dict[str, config.Vector] | None:
     )
 
     chart = st.line_chart(df, height=500, use_container_width=True)
-    table = st.dataframe(df)
+    table = st.dataframe(df, use_container_width=True)
 
     # go through the given number of cycles
     for _ in range(config.LIFE_CYCLES):
