@@ -1,3 +1,3 @@
 * Move constants to sidebar inputs
-* Two columns in sidebar?
-* Round numbers UP
+* Inject MAX_LIFESPAN as dependency in dataclass
+* Maybe one more column in the main area

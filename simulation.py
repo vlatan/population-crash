@@ -21,36 +21,38 @@ def simulate() -> dict[str, config.Vector] | None:
         value=config.LIFE_CYCLES,
     )
 
-    initial_population = st.sidebar.slider(
+    col1, col2 = st.sidebar.columns(2)
+
+    initial_population = col1.slider(
         "Initial population:",
         min_value=1,
         max_value=int(config.INITIAL_POPULATION * 1.5),
         value=config.INITIAL_POPULATION,
     )
 
-    max_population = st.sidebar.slider(
+    max_population = col2.slider(
         "Maximum population:",
         min_value=initial_population,
         max_value=int(config.MAX_POPULATION * 1.5),
         value=config.MAX_POPULATION,
     )
 
-    max_offspring = st.sidebar.slider(
-        "Maximum offspring per female:",
+    max_offspring = col1.slider(
+        "Maximum offspring:",
         min_value=1,
         max_value=int(config.MAX_OFFSPRING * 1.5),
         value=config.MAX_OFFSPRING,
     )
 
-    max_male_partners = st.sidebar.slider(
-        "Maximum partners per female:",
+    max_male_partners = col2.slider(
+        "Maximum partners:",
         min_value=1,
         max_value=int(config.MAX_MALE_PARTNERS * 1.5),
         value=config.MAX_MALE_PARTNERS,
     )
 
-    crispr_females_percentage = st.sidebar.slider(
-        "CRISPR female percentage:",
+    crispr_females_percentage = col1.slider(
+        "CRISPR females %:",
         min_value=0.01,
         max_value=5.0,
         value=config.CRISPR_FEMALES_PERCENTAGE * 100,
@@ -92,7 +94,6 @@ def simulate() -> dict[str, config.Vector] | None:
         """
     )
     line_chart = st.line_chart(df, height=500, use_container_width=True)
-    bar_chart = st.bar_chart(df, height=500, use_container_width=True)
 
     st.subheader("Simulation Table")
     st.write(
@@ -183,7 +184,6 @@ def simulate() -> dict[str, config.Vector] | None:
 
         time.sleep(0.05)
         line_chart.add_rows(df)
-        bar_chart.add_rows(df)
         table.add_rows(df)  # type: ignore
 
         # shuffle males and females

@@ -23,7 +23,7 @@ def create_app() -> None:
     st.html(custom_style)
 
     # logo and site title
-    custom_h1 = f"<h1 class='main-title'><a href='/' target = '_self' title='Home'>Gene Drive Population Crash Simulation</a></h1>"
+    custom_h1 = f"<h1 class='main-title'><a href='/' target = '_self' title='Home'>Population Crash with Gene Drive - Simulation</a></h1>"
     st.sidebar.markdown(custom_h1, unsafe_allow_html=True)
 
     st.sidebar.divider()
