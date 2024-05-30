@@ -28,11 +28,25 @@ def simulate() -> dict[str, config.Vector] | None:
         value=round(config.INITIAL_POPULATION / 1.5),
     )
 
-    maximum_population = st.sidebar.slider(
+    max_population = st.sidebar.slider(
         "Maximum population:",
         initial_population,
         config.MAX_POPULATION,
         value=round(config.MAX_POPULATION / 1.5),
+    )
+
+    max_offspring = st.sidebar.slider(
+        "Maximum offspring per female:",
+        1,
+        config.MAX_OFFSPRING,
+        value=round(config.MAX_OFFSPRING / 1.5),
+    )
+
+    max_male_partners = st.sidebar.slider(
+        "Maximum partners per female:",
+        1,
+        config.MAX_MALE_PARTNERS,
+        value=round(config.MAX_MALE_PARTNERS / 1.5),
     )
 
     crispr_females_percentage = st.sidebar.slider(
@@ -77,7 +91,8 @@ def simulate() -> dict[str, config.Vector] | None:
         that makes their male offspring sterile and passes the same modified gene to their female offspring.
         """
     )
-    chart = st.line_chart(df, height=500, use_container_width=True)
+    line_chart = st.line_chart(df, height=500, use_container_width=True)
+    bar_chart = st.bar_chart(df, height=500, use_container_width=True)
 
     st.subheader("Simulation Table")
     st.write(
@@ -108,7 +123,9 @@ def simulate() -> dict[str, config.Vector] | None:
     # go through the given number of cycles
     for i in range(life_cycles):
         # produce offspring
-        male_kids, female_kids = rep.reproduce(males, females)
+        male_kids, female_kids = rep.reproduce(
+            males, females, max_offspring, max_male_partners
+        )
         # add children to population
         males += male_kids
         females += female_kids
@@ -124,7 +141,7 @@ def simulate() -> dict[str, config.Vector] | None:
         females = [f for f in females if not f.dead]
 
         # remove extra population if any to stay within the population limit
-        if (extra := len(males) + len(females) - maximum_population) > 0:
+        if (extra := len(males) + len(females) - max_population) > 0:
             males = random.sample(males, k=len(males) - extra // 2)
             females = random.sample(females, k=len(females) - extra // 2)
 
@@ -165,8 +182,9 @@ def simulate() -> dict[str, config.Vector] | None:
         )
 
         time.sleep(0.05)
+        line_chart.add_rows(df)
+        bar_chart.add_rows(df)
         table.add_rows(df)  # type: ignore
-        chart.add_rows(df)
 
         # shuffle males and females
         random.shuffle(males)

@@ -14,7 +14,9 @@ def produce_kids(
     return males, females
 
 
-def reproduce(males: pop.Males, females: pop.Females) -> pop.Population:
+def reproduce(
+    males: pop.Males, females: pop.Females, max_offspring: int, max_male_partners: int
+) -> pop.Population:
     """
     males, females: lists of male and female objects.
     --------------------------------------------------------
@@ -28,7 +30,7 @@ def reproduce(males: pop.Males, females: pop.Females) -> pop.Population:
     for female in females:
 
         # randomly choose partners for this female
-        partners_num = min(len(males), random.randrange(1, config.MAX_MALE_PARTNERS))
+        partners_num = min(len(males), random.randrange(1, max_male_partners))
         partners = random.choices(males, k=partners_num)
 
         # if all partners are sterile this female will not produce offspring
@@ -36,7 +38,7 @@ def reproduce(males: pop.Males, females: pop.Females) -> pop.Population:
             continue
 
         # prepare a pool of random sexes for this female's children
-        num_kids = random.randrange(1, config.MAX_OFFSPRING)
+        num_kids = random.randrange(1, max_offspring)
         sexes = [random.choice(("male", "female")) for _ in range(num_kids)]
 
         # produce kids based on whether the female parent has the CRISPR gene or not
