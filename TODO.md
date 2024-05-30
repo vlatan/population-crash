@@ -1,2 +1,3 @@
 * Move constants to sidebar inputs
-* Give name to cycles column in dataframe
+* Add explanation before table that this table grows
+* On first load do not create population, just chart and table

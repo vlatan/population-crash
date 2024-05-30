@@ -13,6 +13,39 @@ def simulate() -> dict[str, config.Vector] | None:
     Records the relevant numbers after every cycle.
     Returns the numbers for each population category in a dict.
     """
+
+    # add progress bar and status text in sidebar
+    progress_bar = st.sidebar.progress(0)
+    status_text = st.sidebar.text("Simulation 0% complete")
+
+    # calculate the initial dataframe numbers
+    half_size = config.INITIAL_POPULATION // 2
+    crispr_females = int(config.CRISPR_FEMALES_PERCENTAGE * half_size)
+    healthy_females = half_size - crispr_females
+
+    # prepare dataframe
+    df = pd.DataFrame(
+        [
+            {
+                "Healthy Males": half_size,
+                "Healthy Females": healthy_females,
+                "Sterile Males": 0,
+                "CRISPR Females": crispr_females,
+            }
+        ],
+        dtype=float,
+    )
+
+    df.index.name = "Life Cycles"
+
+    # write chart and dataframe
+    chart = st.line_chart(df, height=500, use_container_width=True)
+    table = st.dataframe(df, use_container_width=True)
+
+    # if button clicked run the simulation
+    if not st.sidebar.button("Run Simulation"):
+        return
+
     # build the population
     males, females = pop.create_population()
 
@@ -22,29 +55,6 @@ def simulate() -> dict[str, config.Vector] | None:
     non_crispr_fems = [f for f in females if not f.crispr]
     total_pop, crispr, sterile = [population], [len(crispr_fems)], [0]
     non_sterile, non_crispr = [len(males)], [len(non_crispr_fems)]
-
-    df = pd.DataFrame(
-        [
-            {
-                "Healthy Males": non_sterile[0],
-                "Healthy Females": non_crispr[0],
-                "Sterile Males": sterile[0],
-                "CRISPR Females": crispr[0],
-            }
-        ],
-        dtype=float,
-    )
-
-    df.index.name = "Life Cycles"
-
-    chart = st.line_chart(df, height=500, use_container_width=True)
-    table = st.dataframe(df, use_container_width=True)
-
-    progress_bar = st.sidebar.progress(0)
-    status_text = st.sidebar.text("Simulation 0% complete")
-
-    if not st.sidebar.button("Run Simulation"):
-        return
 
     # go through the given number of cycles
     for i in range(config.LIFE_CYCLES):
