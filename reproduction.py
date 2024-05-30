@@ -26,9 +26,11 @@ def reproduce(males: pop.Males, females: pop.Females) -> pop.Population:
 
     # loop through females
     for female in females:
+
         # randomly choose partners for this female
         partners_num = min(len(males), random.randrange(1, config.MAX_MALE_PARTNERS))
         partners = random.choices(males, k=partners_num)
+
         # if all partners are sterile this female will not produce offspring
         if all((partner.sterile for partner in partners)):
             continue
