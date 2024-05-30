@@ -27,13 +27,13 @@ of a member of that population is 4 years then the maximum lifespan is represent
 * Females can have multiple partners as is the case in many of the species to ensure reproduction. Only if all of her partners are sterile only then the female will not have offspring during that cycle.
 
 **Constants you can adjust for this simulation:**
-* **CYCLES** - number of reproductive cycles you want this simulation to run.
+* **LIFE_CYCLES** - number of reproductive cycles you want this simulation to run.
 * **INITIAL_POPULATION** - initial size of the population.
 * **MAX_OFFSPRING** - maximum number of children female can have per cycle.
 * **MAX_LIFESPAN** - maximum lifespan of the species (number of female reproductive cycles).
 * **MAX_MALE_PARTNERS** - maximum number of partners female can have per cycle.
-* **CRISPR_FEMALES** - percentage of females with CRISPR edited gene.
-* **POPULATION_LIMIT** - population limit which external forces (predators, diseases, etc.) keep in check.
+* **CRISPR_FEMALES_PERCENTAGE** - percentage of females with CRISPR edited gene.
+* **MAX_POPULATION** - population limit which external forces (predators, diseases, etc.) keep in check.
 
 So, at every cycle a female mates with a number of random partners. The female gives birth to a random number of male and female children. If a female parent carries the CRISPR edited gene
 and at least one of her partners was not sterile they will produce female children that carry the

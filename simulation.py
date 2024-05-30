@@ -38,7 +38,7 @@ def simulate() -> dict[str, config.Vector] | None:
     table = st.dataframe(df)
 
     # go through the given number of cycles
-    for _ in range(config.CYCLES):
+    for _ in range(config.LIFE_CYCLES):
         # produce offspring
         male_kids, female_kids = rep.reproduce(males, females)
         # add children to population
@@ -56,15 +56,15 @@ def simulate() -> dict[str, config.Vector] | None:
         females = [f for f in females if not f.dead]
 
         # remove extra population if any to stay within the population limit
-        if (extra := len(males) + len(females) - config.POPULATION_LIMIT) > 0:
+        if (extra := len(males) + len(females) - config.MAX_POPULATION) > 0:
             males = random.sample(males, k=len(males) - extra // 2)
             females = random.sample(females, k=len(females) - extra // 2)
 
         # refresh the population number
         population = len(males) + len(females)
 
-        # introduce CRISPR gene in some of the females
-        count = int((config.INITIAL_POPULATION // 2) * config.CRISPR_FEMALES)
+        # introduce CRISPR gene in some of the females on every life cycle
+        count = int((config.INITIAL_POPULATION // 2) * config.CRISPR_FEMALES_PERCENTAGE)
         for f in females:
             if count <= 0 or f.crispr:
                 continue
