@@ -16,43 +16,43 @@ def simulate() -> dict[str, config.Vector] | None:
 
     life_cycles = st.sidebar.slider(
         "Life cycles:",
-        1,
-        config.LIFE_CYCLES,
-        value=round(config.LIFE_CYCLES / 1.5),
+        min_value=1,
+        max_value=int(config.LIFE_CYCLES * 1.5),
+        value=config.LIFE_CYCLES,
     )
 
     initial_population = st.sidebar.slider(
         "Initial population:",
-        1,
-        config.INITIAL_POPULATION,
-        value=round(config.INITIAL_POPULATION / 1.5),
+        min_value=1,
+        max_value=int(config.INITIAL_POPULATION * 1.5),
+        value=config.INITIAL_POPULATION,
     )
 
     max_population = st.sidebar.slider(
         "Maximum population:",
-        initial_population,
-        config.MAX_POPULATION,
-        value=round(config.MAX_POPULATION / 1.5),
+        min_value=initial_population,
+        max_value=int(config.MAX_POPULATION * 1.5),
+        value=config.MAX_POPULATION,
     )
 
     max_offspring = st.sidebar.slider(
         "Maximum offspring per female:",
-        1,
-        config.MAX_OFFSPRING,
-        value=round(config.MAX_OFFSPRING / 1.5),
+        min_value=1,
+        max_value=int(config.MAX_OFFSPRING * 1.5),
+        value=config.MAX_OFFSPRING,
     )
 
     max_male_partners = st.sidebar.slider(
         "Maximum partners per female:",
-        1,
-        config.MAX_MALE_PARTNERS,
-        value=round(config.MAX_MALE_PARTNERS / 1.5),
+        min_value=1,
+        max_value=int(config.MAX_MALE_PARTNERS * 1.5),
+        value=config.MAX_MALE_PARTNERS,
     )
 
     crispr_females_percentage = st.sidebar.slider(
         "CRISPR female percentage:",
-        0.01,
-        5.0,
+        min_value=0.01,
+        max_value=5.0,
         value=config.CRISPR_FEMALES_PERCENTAGE * 100,
     )
 
