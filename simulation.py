@@ -113,7 +113,9 @@ def simulate() -> dict[str, config.Vector] | None:
     table = st.dataframe(df, use_container_width=True)
 
     # if button clicked run the simulation
-    if not st.sidebar.button("Run the Simulation"):
+    if not st.sidebar.button(
+        label="Run the Simulation", type="primary", use_container_width=True
+    ):
         return
 
     # build the population
