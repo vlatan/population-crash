@@ -14,13 +14,43 @@ def simulate() -> dict[str, config.Vector] | None:
     Returns the numbers for each population category in a dict.
     """
 
+    life_cycles = st.sidebar.slider(
+        "Life cycles:",
+        1,
+        config.LIFE_CYCLES,
+        value=round(config.LIFE_CYCLES / 1.5),
+    )
+
+    initial_population = st.sidebar.slider(
+        "Initial population:",
+        1,
+        config.INITIAL_POPULATION,
+        value=round(config.INITIAL_POPULATION / 1.5),
+    )
+
+    maximum_population = st.sidebar.slider(
+        "Maximum population:",
+        initial_population,
+        config.MAX_POPULATION,
+        value=round(config.MAX_POPULATION / 1.5),
+    )
+
+    crispr_females_percentage = st.sidebar.slider(
+        "CRISPR female percentage:",
+        0.01,
+        5.0,
+        value=config.CRISPR_FEMALES_PERCENTAGE * 100,
+    )
+
+    crispr_females_percentage /= 100
+
     # add progress bar and status text in sidebar
     progress_bar = st.sidebar.progress(0)
     status_text = st.sidebar.text("Simulation 0% complete")
 
     # calculate the initial dataframe numbers
-    half_size = config.INITIAL_POPULATION // 2
-    crispr_females = int(config.CRISPR_FEMALES_PERCENTAGE * half_size)
+    half_size = initial_population // 2
+    crispr_females = int(crispr_females_percentage * half_size)
     healthy_females = half_size - crispr_females
 
     # prepare dataframe
@@ -60,11 +90,13 @@ def simulate() -> dict[str, config.Vector] | None:
     table = st.dataframe(df, use_container_width=True)
 
     # if button clicked run the simulation
-    if not st.sidebar.button("Run Simulation"):
+    if not st.sidebar.button("Run the Simulation"):
         return
 
     # build the population
-    males, females = pop.create_population()
+    males, females = pop.create_population(
+        initial_population, crispr_females_percentage
+    )
 
     # record the initial numbers
     population = len(males) + len(females)
@@ -74,7 +106,7 @@ def simulate() -> dict[str, config.Vector] | None:
     non_sterile, non_crispr = [len(males)], [len(non_crispr_fems)]
 
     # go through the given number of cycles
-    for i in range(config.LIFE_CYCLES):
+    for i in range(life_cycles):
         # produce offspring
         male_kids, female_kids = rep.reproduce(males, females)
         # add children to population
@@ -92,7 +124,7 @@ def simulate() -> dict[str, config.Vector] | None:
         females = [f for f in females if not f.dead]
 
         # remove extra population if any to stay within the population limit
-        if (extra := len(males) + len(females) - config.MAX_POPULATION) > 0:
+        if (extra := len(males) + len(females) - maximum_population) > 0:
             males = random.sample(males, k=len(males) - extra // 2)
             females = random.sample(females, k=len(females) - extra // 2)
 
@@ -100,7 +132,7 @@ def simulate() -> dict[str, config.Vector] | None:
         population = len(males) + len(females)
 
         # introduce CRISPR gene in some of the females on every life cycle
-        count = int((config.INITIAL_POPULATION // 2) * config.CRISPR_FEMALES_PERCENTAGE)
+        count = int((initial_population // 2) * crispr_females_percentage)
         for f in females:
             if count <= 0 or f.crispr:
                 continue
@@ -140,7 +172,7 @@ def simulate() -> dict[str, config.Vector] | None:
         random.shuffle(males)
         random.shuffle(females)
 
-        percentage_complete = round(((i + 1) / config.LIFE_CYCLES) * 100)
+        percentage_complete = round(((i + 1) / life_cycles) * 100)
         progress_bar.progress(percentage_complete)
         status_text.text(f"Simulation {percentage_complete}% complete")
 

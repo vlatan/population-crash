@@ -10,7 +10,7 @@ def create_app() -> None:
     st.set_page_config(
         page_title="Gene Drive Population Crash Simulation",
         initial_sidebar_state="expanded",
-        page_icon=":anger:",
+        page_icon=":material/change_circle:",
     )
 
     # cursor pointer on dropdown select and h1 link style
