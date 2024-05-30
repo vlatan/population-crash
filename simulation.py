@@ -38,8 +38,25 @@ def simulate() -> dict[str, config.Vector] | None:
 
     df.index.name = "Life Cycles"
 
-    # write chart and dataframe
+    st.subheader("Simulation Chart")
+
+    st.write(
+        """
+        When you run the simulation the chart will "grow" to the right showing the updated population numbers - 
+        healthy males and females, sterile males and "CRISPR" females which cary a special modified gene
+        that makes their male offspring sterile and passes the same modified gene to their female offspring.
+        """
+    )
     chart = st.line_chart(df, height=500, use_container_width=True)
+
+    st.subheader("Simulation Table")
+    st.write(
+        """
+        When you run the simulation the table will "grow" downwards, new rows will be added at each life cycle, 
+        showing how the numbers of the population behave in each life cycle.
+        """
+    )
+
     table = st.dataframe(df, use_container_width=True)
 
     # if button clicked run the simulation
