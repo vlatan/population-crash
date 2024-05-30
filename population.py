@@ -17,14 +17,12 @@ class Individual:
 
 class Male(Individual):
     def __init__(self, lifespan: int, age: int, sterile: bool = False):
-        # Males are NOT sterile by default.
         super().__init__(lifespan, age)
         self.sterile = sterile
 
 
 class Female(Individual):
     def __init__(self, lifespan: int, age: int, crispr: bool = False):
-        # Males are NOT sterile by default.
         super().__init__(lifespan, age)
         self.crispr = crispr
 
