@@ -1,21 +1,29 @@
 import random
-
-import config
 import population as pop
 
 
 def produce_kids(
-    sexes: list[str], sterile: bool = False, crispr: bool = False
+    sexes: list[str], max_lifespan: int, sterile: bool = False, crispr: bool = False
 ) -> pop.Population:
     """Produce number of children based on their sex and genes."""
 
-    males = [pop.Male(age=0, sterile=sterile) for sex in sexes if sex == "male"]
-    females = [pop.Female(age=0, crispr=crispr) for sex in sexes if sex == "female"]
+    males, females = [], []
+    for sex in sexes:
+        lifespan = random.randrange(1, max_lifespan)
+        if sex == "male":
+            males.append(pop.Male(lifespan=lifespan, age=0, sterile=sterile))
+        elif sex == "female":
+            females.append(pop.Female(lifespan=lifespan, age=0, crispr=crispr))
+
     return males, females
 
 
 def reproduce(
-    males: pop.Males, females: pop.Females, max_offspring: int, max_male_partners: int
+    males: pop.Males,
+    females: pop.Females,
+    max_offspring: int,
+    max_male_partners: int,
+    max_lifespan: int,
 ) -> pop.Population:
     """
     males, females: lists of male and female objects.
@@ -43,9 +51,9 @@ def reproduce(
 
         # produce kids based on whether the female parent has the CRISPR gene or not
         male_kids, female_kids = (
-            produce_kids(sexes, sterile=True, crispr=True)
+            produce_kids(sexes, max_lifespan, sterile=True, crispr=True)
             if female.crispr
-            else produce_kids(sexes)
+            else produce_kids(sexes, max_lifespan)
         )
 
         # add this female's children to the pool of population's children

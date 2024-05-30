@@ -44,14 +44,21 @@ def simulate() -> dict[str, config.Vector] | None:
         value=config.MAX_OFFSPRING,
     )
 
-    max_male_partners = col2.slider(
+    max_lifespan = col2.slider(
+        "Maximum lifespan:",
+        min_value=1,
+        max_value=int(config.MAX_LIFESPAN * 1.5),
+        value=config.MAX_LIFESPAN,
+    )
+
+    max_male_partners = col1.slider(
         "Maximum partners:",
         min_value=1,
         max_value=int(config.MAX_MALE_PARTNERS * 1.5),
         value=config.MAX_MALE_PARTNERS,
     )
 
-    crispr_females_percentage = col1.slider(
+    crispr_females_percentage = col2.slider(
         "CRISPR females %:",
         min_value=0.01,
         max_value=5.0,
@@ -111,7 +118,7 @@ def simulate() -> dict[str, config.Vector] | None:
 
     # build the population
     males, females = pop.create_population(
-        initial_population, crispr_females_percentage
+        initial_population, crispr_females_percentage, max_lifespan
     )
 
     # record the initial numbers
@@ -125,7 +132,7 @@ def simulate() -> dict[str, config.Vector] | None:
     for i in range(life_cycles):
         # produce offspring
         male_kids, female_kids = rep.reproduce(
-            males, females, max_offspring, max_male_partners
+            males, females, max_offspring, max_male_partners, max_lifespan
         )
         # add children to population
         males += male_kids

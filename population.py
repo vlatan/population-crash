@@ -1,13 +1,13 @@
 import random
-from dataclasses import dataclass
-
-import config
 
 
-@dataclass
 class Individual:
-    lifespan: int = random.randrange(1, config.MAX_LIFESPAN)
-    age: int = random.randrange(lifespan)
+    def __init__(self, lifespan: int, age: int):
+        self.lifespan = lifespan
+        self.age = age
+
+        if self.age > self.lifespan:
+            raise ValueError("Age cannot be bigger than lifespan.")
 
     @property
     def dead(self) -> bool:
@@ -15,16 +15,18 @@ class Individual:
         return self.age >= self.lifespan
 
 
-@dataclass
 class Male(Individual):
-    # Males are NOT sterile by default.
-    sterile: bool = False
+    def __init__(self, lifespan: int, age: int, sterile: bool = False):
+        # Males are NOT sterile by default.
+        super().__init__(lifespan, age)
+        self.sterile = sterile
 
 
-@dataclass
 class Female(Individual):
-    # Females do NOT carry edited gene by default.
-    crispr: bool = False
+    def __init__(self, lifespan: int, age: int, crispr: bool = False):
+        # Males are NOT sterile by default.
+        super().__init__(lifespan, age)
+        self.crispr = crispr
 
 
 type Males = list[Male]
@@ -33,14 +35,23 @@ type Population = tuple[list[Male], list[Female]]
 
 
 def create_population(
-    initial_population: int, crispr_female_percentage: float
+    initial_population: int, crispr_female_percentage: float, max_lifespan: int
 ) -> Population:
     """Returns: Tuple of two lists of male and female objects."""
 
     # males and females with random lifespan and age
     half_size = initial_population // 2
-    males = [Male() for _ in range(half_size)]
-    females = [Female() for _ in range(half_size)]
+    males, females = [], []
+
+    for _ in range(half_size):
+        lifespan = random.randrange(1, max_lifespan)
+        age = random.randrange(lifespan)
+        males.append(Male(lifespan=lifespan, age=age))
+
+        lifespan = random.randrange(1, max_lifespan)
+        age = random.randrange(lifespan)
+        females.append(Female(lifespan=lifespan, age=age))
+
     females_num = len(females)
 
     # some number of random females have the CRISPR gene
