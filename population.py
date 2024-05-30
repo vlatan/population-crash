@@ -42,8 +42,9 @@ def create_population() -> Population:
     females_num = len(females)
 
     # some number of random females have the CRISPR gene
-    for _ in range(int(config.CRISPR_FEMALES * females_num)):
-        random_index = random.randint(0, females_num - 1)
-        females[random_index].crispr = True
+    num_crispr_females = int(config.CRISPR_FEMALES * females_num)
+    random_indices = random.sample(range(females_num - 1), k=num_crispr_females)
+    for index in random_indices:
+        females[index].crispr = True
 
     return males, females

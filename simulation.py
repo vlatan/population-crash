@@ -17,8 +17,10 @@ def simulate() -> dict[str, config.Vector] | None:
 
     # record the initial numbers
     population = len(males) + len(females)
-    total_pop, crispr, sterile = [population], [config.CRISPR_FEMALES], [0]
-    non_sterile, non_crispr = [len(males)], [len(females) - config.CRISPR_FEMALES]
+    crispr_fems = [f for f in females if f.crispr]
+    non_crispr_fems = [f for f in females if not f.crispr]
+    total_pop, crispr, sterile = [population], [len(crispr_fems)], [0]
+    non_sterile, non_crispr = [len(males)], [len(non_crispr_fems)]
 
     df = pd.DataFrame(
         [
@@ -61,7 +63,7 @@ def simulate() -> dict[str, config.Vector] | None:
         # refresh the population number
         population = len(males) + len(females)
 
-        # introduce CRISPR in some of the females
+        # introduce CRISPR gene in some of the females
         count = int((config.INITIAL_POPULATION // 2) * config.CRISPR_FEMALES)
         for f in females:
             if count <= 0 or f.crispr:
@@ -71,13 +73,15 @@ def simulate() -> dict[str, config.Vector] | None:
 
         # check sterile males and crispr females numbers
         crispr_fems = [f for f in females if f.crispr]
+        non_crispr_fems = [f for f in females if not f.crispr]
         sterile_males = [m for m in males if m.sterile]
+        non_sterile_males = [m for m in males if not m.sterile]
 
         # record (append) the population numbers for this cycle
         crispr.append(len(crispr_fems))  # CRISPR females
-        non_crispr.append(len(females) - len(crispr_fems))  # NON CRISPR females
+        non_crispr.append(len(non_crispr_fems))  # NON CRISPR females
         sterile.append(len(sterile_males))  # STERILE males
-        non_sterile.append(len(males) - len(sterile_males))  # NON STERILE males
+        non_sterile.append(len(non_sterile_males))  # NON STERILE males
         total_pop.append(population)  # total population
 
         df = pd.DataFrame(
