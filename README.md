@@ -87,7 +87,7 @@ pip install -r requirements.txt &&
 
 Launch the app on `localhost` on port `8501`.
 ``` bash
-streamlit run run.py
+streamlit run app.py
 ```
 
 ## License

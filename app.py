@@ -29,3 +29,7 @@ def create_app() -> None:
     # st.sidebar.divider()
 
     sim.simulate()
+
+
+if __name__ == "__main__":
+    create_app()
