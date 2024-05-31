@@ -1,3 +1,4 @@
+import pathlib
 import streamlit as st
 import simulation as sim
 
@@ -8,6 +9,7 @@ def create_app() -> None:
     # meta title - set_page_config needs to be called first in the page
     st.set_page_config(
         page_title="Gene Drive Population Crash Simulation",
+        layout="wide",
         initial_sidebar_state="expanded",
         page_icon=":material/change_circle:",
     )
@@ -28,3 +30,14 @@ def create_app() -> None:
     # st.sidebar.divider()
 
     sim.simulate()
+
+    info = get_info()
+    st.markdown(info)
+
+
+# @st.cache_data(show_spinner=False)
+def get_info() -> str:
+    """Get README file content."""
+
+    readme = pathlib.Path(__file__).parent.resolve() / "README.md"
+    return pathlib.Path(readme).read_text()

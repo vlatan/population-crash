@@ -1,24 +1,22 @@
-# Gene Drive Population Crash Simulation
+# Gene Drive Population Crash - Simulation
 
-**CRISPR** technology is a powerful tool for editing genomes.
+[CRISPR](https://en.wikipedia.org/wiki/CRISPR) technology is a powerful tool for editing genomes.
 It allows scientists to easily alter DNA sequences and modify genes.
 Even more so it can be used to pass those altered genes to the next
-generation (**Gene Drive**) with 100% certainty and to all offspring instead of
-to just 50%.
+generation, by using [Gene Drive](https://en.wikipedia.org/wiki/Gene_drive), 
+with 100% certainty and to all offspring instead of to just 50%.
 
-By doing so, with gene drive you can even crash a population if you
+By doing so, with gene drive you can even crash or exterminate an entire population if you
 successfully propagate certain genes through that population. Scientists are
 already experimenting with mosquitoes and rats. For example they can eradicate
 malaria if they crash the population of mosquitoes that carry and spread malaria.
 
 In this simulation, we can arbitrarily introduce number of females into the population
-with CRISPR edited genes which assure that their male offspring are sterile
+with CRISPR edited genes which ensure that their male offspring are sterile
 and their female offspring are carrying those same CRISPR edited genes.
 By doing this it is likely that sterile males and CRISPR females will propagate and
 spread through the population and if they reach a critical number the population may
 even crash.
-
-![Population Crash](/crash.png?raw=true "Population Crash")
 
 **Assumptions:**
 * An individual's lifespan is represented in female reproductive cycles rather than in years.

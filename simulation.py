@@ -14,6 +14,33 @@ def simulate() -> dict[str, config.Vector] | None:
     Returns the numbers for each population category in a dict.
     """
 
+    st.subheader("Simulation Chart")
+
+    st.write(
+        """
+        Press **the button in the sidebar** to run the simulation. The chart will re-render
+        showing the updated population numbers: healthy males and females, sterile males 
+        and females that cary a CRISPR edited gene. [Read more ↓](/#gene-drive-population-crash-simulation)
+        """
+    )
+
+    # get ready made dataframe from CSV file just for the initial page load display
+    placeholder_df = read_simulation_csv()
+
+    chart_placeholder = st.empty()
+    chart_placeholder.line_chart(placeholder_df, height=500, use_container_width=True)
+
+    st.subheader("Simulation Table")
+    st.write(
+        """
+        When you run the simulation the table will "grow" downwards, new rows will be added at each life cycle, 
+        showing how the numbers of the population behave in each life cycle.
+        """
+    )
+
+    table_placeholder = st.empty()
+    table_placeholder.dataframe(placeholder_df, use_container_width=True)
+
     life_cycles = st.sidebar.slider(
         "Life cycles:",
         min_value=1,
@@ -59,7 +86,7 @@ def simulate() -> dict[str, config.Vector] | None:
     )
 
     crispr_females_percentage = col2.slider(
-        "CRISPR females %:",
+        "CRISPR females (%):",
         min_value=0.01,
         max_value=5.0,
         value=config.CRISPR_FEMALES_PERCENTAGE * 100,
@@ -70,6 +97,12 @@ def simulate() -> dict[str, config.Vector] | None:
     # add progress bar and status text in sidebar
     progress_bar = st.sidebar.progress(0)
     status_text = st.sidebar.text("Simulation 0% complete")
+
+    # if button clicked run the simulation
+    if not st.sidebar.button(
+        label="Run the Simulation", type="primary", use_container_width=True
+    ):
+        return
 
     # calculate the initial dataframe numbers
     half_size = initial_population // 2
@@ -91,32 +124,9 @@ def simulate() -> dict[str, config.Vector] | None:
 
     df.index.name = "Life Cycles"
 
-    st.subheader("Simulation Chart")
-
-    st.write(
-        """
-        When you run the simulation the chart will "grow" to the right showing the updated population numbers - 
-        healthy males and females, sterile males and "CRISPR" females which cary a special modified gene
-        that makes their male offspring sterile and passes the same modified gene to their female offspring.
-        """
-    )
-    line_chart = st.line_chart(df, height=500, use_container_width=True)
-
-    st.subheader("Simulation Table")
-    st.write(
-        """
-        When you run the simulation the table will "grow" downwards, new rows will be added at each life cycle, 
-        showing how the numbers of the population behave in each life cycle.
-        """
-    )
-
-    table = st.dataframe(df, use_container_width=True)
-
-    # if button clicked run the simulation
-    if not st.sidebar.button(
-        label="Run the Simulation", type="primary", use_container_width=True
-    ):
-        return
+    # replace chart and table with empty ones
+    line_chart = chart_placeholder.line_chart(df, height=500, use_container_width=True)
+    table = table_placeholder.dataframe(df, use_container_width=True)
 
     # build the population
     males, females = pop.create_population(
@@ -210,3 +220,8 @@ def simulate() -> dict[str, config.Vector] | None:
         non_crispr=non_crispr,
         total_pop=total_pop,
     )
+
+
+@st.cache_data(show_spinner=False)
+def read_simulation_csv() -> pd.DataFrame:
+    return pd.read_csv("simulation.csv", index_col="Life Cycles")
