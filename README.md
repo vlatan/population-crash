@@ -90,6 +90,10 @@ Launch the app on `localhost` on port `8501`.
 streamlit run app.py
 ```
 
+## Deployed
+
+https://genedrive.streamlit.app
+
 ## License
 
 [![License: MIT](https://img.shields.io/github/license/vlatan/population-crash?label=License)](/LICENSE "License: MIT")
