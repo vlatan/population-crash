@@ -1,5 +1,6 @@
 import time
 import random
+import pathlib
 import pandas as pd
 import streamlit as st
 
@@ -21,8 +22,7 @@ def simulate() -> dict[str, config.Vector] | None:
     st.write(
         """
         Press **the button in the sidebar** to run the simulation. The chart will re-render
-        showing the updated population numbers: healthy males and females, sterile males 
-        and females that cary a CRISPR edited gene. [Read more ↓](/#gene-drive-population-crash-simulation)
+        showing the updated population numbers.
         """
     )
 
@@ -32,19 +32,25 @@ def simulate() -> dict[str, config.Vector] | None:
     st.subheader("Simulation Table")
     st.write(
         """
-        When you run the simulation the table will "grow" downwards, new rows will be added at each life cycle, 
-        showing how the numbers of the population behave in each life cycle.
+        Press **the button in the sidebar** to run the simulation. The table will re-render
+        showing the updated population numbers.
         """
     )
 
     table_placeholder = st.empty()
     table_placeholder.dataframe(placeholder_df, use_container_width=True)
 
-    life_cycles = st.sidebar.slider(
-        "Life cycles:",
+    excerpt, info = get_info()
+    st.subheader("Background")
+    st.write(excerpt)
+    expander = st.expander("Read more...")
+    expander.markdown(info)
+
+    reproductive_cycles = st.sidebar.slider(
+        "Reproductive cycles:",
         min_value=1,
-        max_value=int(config.LIFE_CYCLES * 1.5),
-        value=config.LIFE_CYCLES,
+        max_value=int(config.REPRODUCTIVE_CYCLES * 1.5),
+        value=config.REPRODUCTIVE_CYCLES,
     )
 
     col1, col2 = st.sidebar.columns(2)
@@ -65,11 +71,11 @@ def simulate() -> dict[str, config.Vector] | None:
             value=config.MAX_OFFSPRING,
         )
 
-        max_male_partners = st.slider(
+        max_partners = st.slider(
             "Maximum partners:",
             min_value=1,
-            max_value=int(config.MAX_MALE_PARTNERS * 1.5),
-            value=config.MAX_MALE_PARTNERS,
+            max_value=int(config.MAX_PARTNERS * 1.5),
+            value=config.MAX_PARTNERS,
         )
 
     with col2:
@@ -125,7 +131,7 @@ def simulate() -> dict[str, config.Vector] | None:
         dtype=float,
     )
 
-    df.index.name = "Life Cycles"
+    df.index.name = "Reproductive Cycles"
 
     # replace the chart and table placeholders
     line_chart = chart_placeholder.line_chart(df, height=500, use_container_width=True)
@@ -144,10 +150,10 @@ def simulate() -> dict[str, config.Vector] | None:
     non_sterile, non_crispr = [len(males)], [len(non_crispr_fems)]
 
     # go through the given number of cycles
-    for i in range(life_cycles):
+    for i in range(reproductive_cycles):
         # produce offspring
         male_kids, female_kids = rep.reproduce(
-            males, females, max_offspring, max_male_partners, max_lifespan
+            males, females, max_offspring, max_partners, max_lifespan
         )
         # add children to population
         males += male_kids
@@ -171,7 +177,7 @@ def simulate() -> dict[str, config.Vector] | None:
         # refresh the population number
         population = len(males) + len(females)
 
-        # introduce CRISPR gene in some of the females on every life cycle
+        # introduce CRISPR edited gene in some of the females on every reproductive cycle
         count = int((initial_population // 2) * crispr_females_percentage)
         for f in females:
             if count <= 0 or f.crispr:
@@ -212,7 +218,7 @@ def simulate() -> dict[str, config.Vector] | None:
         random.shuffle(males)
         random.shuffle(females)
 
-        percentage_complete = round(((i + 1) / life_cycles) * 100)
+        percentage_complete = round(((i + 1) / reproductive_cycles) * 100)
         progress_bar.progress(percentage_complete)
         status_text.text(f"Simulation {percentage_complete}% complete")
 
@@ -227,4 +233,14 @@ def simulate() -> dict[str, config.Vector] | None:
 
 @st.cache_data(show_spinner=False)
 def read_placeholder_csv() -> pd.DataFrame:
-    return pd.read_csv("placeholder.csv", index_col="Life Cycles")
+    return pd.read_csv("placeholder.csv", index_col="Reproductive Cycles")
+
+
+@st.cache_data(show_spinner=False)
+def get_info() -> tuple[str, str]:
+    """Get README file content."""
+    readme = pathlib.Path(__file__).parent.resolve() / "README.md"
+    readme = pathlib.Path(readme).read_text()
+    excerpt = readme.split("<!-- EXCERPT -->")
+    info = readme.split("<!-- INFO -->")
+    return excerpt[1], info[1]

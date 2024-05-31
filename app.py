@@ -1,4 +1,3 @@
-import pathlib
 import streamlit as st
 import simulation as sim
 
@@ -30,14 +29,3 @@ def create_app() -> None:
     # st.sidebar.divider()
 
     sim.simulate()
-
-    info = get_info()
-    st.markdown(info)
-
-
-# @st.cache_data(show_spinner=False)
-def get_info() -> str:
-    """Get README file content."""
-
-    readme = pathlib.Path(__file__).parent.resolve() / "README.md"
-    return pathlib.Path(readme).read_text()
