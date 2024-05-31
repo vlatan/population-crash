@@ -14,8 +14,10 @@ def simulate() -> dict[str, config.Vector] | None:
     Returns the numbers for each population category in a dict.
     """
 
-    st.subheader("Simulation Chart")
+    # get ready made dataframe from CSV file just for the initial page load display
+    placeholder_df = read_placeholder_csv()
 
+    st.subheader("Simulation Chart")
     st.write(
         """
         Press **the button in the sidebar** to run the simulation. The chart will re-render
@@ -23,9 +25,6 @@ def simulate() -> dict[str, config.Vector] | None:
         and females that cary a CRISPR edited gene. [Read more ↓](/#gene-drive-population-crash-simulation)
         """
     )
-
-    # get ready made dataframe from CSV file just for the initial page load display
-    placeholder_df = read_simulation_csv()
 
     chart_placeholder = st.empty()
     chart_placeholder.line_chart(placeholder_df, height=500, use_container_width=True)
@@ -50,47 +49,51 @@ def simulate() -> dict[str, config.Vector] | None:
 
     col1, col2 = st.sidebar.columns(2)
 
-    initial_population = col1.slider(
-        "Initial population:",
-        min_value=1,
-        max_value=int(config.INITIAL_POPULATION * 1.5),
-        value=config.INITIAL_POPULATION,
-    )
+    with col1:
 
-    max_population = col2.slider(
-        "Maximum population:",
-        min_value=initial_population,
-        max_value=int(config.MAX_POPULATION * 1.5),
-        value=config.MAX_POPULATION,
-    )
+        initial_population = st.slider(
+            "Initial population:",
+            min_value=1,
+            max_value=int(config.INITIAL_POPULATION * 1.5),
+            value=config.INITIAL_POPULATION,
+        )
 
-    max_offspring = col1.slider(
-        "Maximum offspring:",
-        min_value=1,
-        max_value=int(config.MAX_OFFSPRING * 1.5),
-        value=config.MAX_OFFSPRING,
-    )
+        max_offspring = st.slider(
+            "Maximum offspring:",
+            min_value=1,
+            max_value=int(config.MAX_OFFSPRING * 1.5),
+            value=config.MAX_OFFSPRING,
+        )
 
-    max_lifespan = col2.slider(
-        "Maximum lifespan:",
-        min_value=1,
-        max_value=int(config.MAX_LIFESPAN * 1.5),
-        value=config.MAX_LIFESPAN,
-    )
+        max_male_partners = st.slider(
+            "Maximum partners:",
+            min_value=1,
+            max_value=int(config.MAX_MALE_PARTNERS * 1.5),
+            value=config.MAX_MALE_PARTNERS,
+        )
 
-    max_male_partners = col1.slider(
-        "Maximum partners:",
-        min_value=1,
-        max_value=int(config.MAX_MALE_PARTNERS * 1.5),
-        value=config.MAX_MALE_PARTNERS,
-    )
+    with col2:
 
-    crispr_females_percentage = col2.slider(
-        "CRISPR females (%):",
-        min_value=0.01,
-        max_value=5.0,
-        value=config.CRISPR_FEMALES_PERCENTAGE * 100,
-    )
+        max_population = st.slider(
+            "Maximum population:",
+            min_value=initial_population,
+            max_value=int(config.MAX_POPULATION * 1.5),
+            value=config.MAX_POPULATION,
+        )
+
+        max_lifespan = st.slider(
+            "Maximum lifespan:",
+            min_value=1,
+            max_value=int(config.MAX_LIFESPAN * 1.5),
+            value=config.MAX_LIFESPAN,
+        )
+
+        crispr_females_percentage = st.slider(
+            "CRISPR females (%):",
+            min_value=0.01,
+            max_value=5.0,
+            value=config.CRISPR_FEMALES_PERCENTAGE * 100,
+        )
 
     crispr_females_percentage /= 100
 
@@ -104,7 +107,7 @@ def simulate() -> dict[str, config.Vector] | None:
     ):
         return
 
-    # calculate the initial dataframe numbers
+    # prepare the initial dataframe data (the first row)
     half_size = initial_population // 2
     crispr_females = int(crispr_females_percentage * half_size)
     healthy_females = half_size - crispr_females
@@ -124,7 +127,7 @@ def simulate() -> dict[str, config.Vector] | None:
 
     df.index.name = "Life Cycles"
 
-    # replace chart and table with empty ones
+    # replace the chart and table placeholders
     line_chart = chart_placeholder.line_chart(df, height=500, use_container_width=True)
     table = table_placeholder.dataframe(df, use_container_width=True)
 
@@ -223,5 +226,5 @@ def simulate() -> dict[str, config.Vector] | None:
 
 
 @st.cache_data(show_spinner=False)
-def read_simulation_csv() -> pd.DataFrame:
-    return pd.read_csv("simulation.csv", index_col="Life Cycles")
+def read_placeholder_csv() -> pd.DataFrame:
+    return pd.read_csv("placeholder.csv", index_col="Life Cycles")
