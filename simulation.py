@@ -1,10 +1,10 @@
 import time
 import random
-import pathlib
 import pandas as pd
 import streamlit as st
 
 import config
+import utils as ut
 import population as pop
 import reproduction as rep
 
@@ -16,7 +16,7 @@ def simulate() -> dict[str, config.Vector] | None:
     """
 
     # get ready made dataframe from CSV file just for the initial page load display
-    placeholder_df = read_placeholder_csv()
+    placeholder_df = ut.read_placeholder_csv()
 
     st.subheader("Simulation Chart")
     st.write(
@@ -40,7 +40,7 @@ def simulate() -> dict[str, config.Vector] | None:
     table_placeholder = st.empty()
     table_placeholder.dataframe(placeholder_df, use_container_width=True)
 
-    excerpt, info = get_info()
+    excerpt, info = ut.get_readme()
     st.subheader("Background")
     st.write(excerpt)
     expander = st.expander("Read more...")
@@ -229,18 +229,3 @@ def simulate() -> dict[str, config.Vector] | None:
         non_crispr=non_crispr,
         total_pop=total_pop,
     )
-
-
-@st.cache_data(show_spinner=False)
-def read_placeholder_csv() -> pd.DataFrame:
-    return pd.read_csv("placeholder.csv", index_col="Reproductive Cycles")
-
-
-@st.cache_data(show_spinner=False)
-def get_info() -> tuple[str, str]:
-    """Get README file content."""
-    readme = pathlib.Path(__file__).parent.resolve() / "README.md"
-    readme = pathlib.Path(readme).read_text()
-    excerpt = readme.split("<!-- EXCERPT -->")
-    info = readme.split("<!-- INFO -->")
-    return excerpt[1], info[1]
