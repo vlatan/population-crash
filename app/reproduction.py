@@ -1,5 +1,5 @@
 import random
-import population as pop
+from . import population as pop
 
 
 def produce_kids(

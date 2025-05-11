@@ -1,5 +1,5 @@
 import streamlit as st
-import simulation as sim
+from . import simulation as sim
 
 
 def create_app() -> None:
@@ -26,7 +26,3 @@ def create_app() -> None:
     st.sidebar.title("Population Crash with Gene Drive - Simulation")
 
     sim.simulate()
-
-
-if __name__ == "__main__":
-    create_app()

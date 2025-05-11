@@ -3,10 +3,10 @@ import random
 import pandas as pd
 import streamlit as st
 
-import config
-import utils as ut
-import population as pop
-import reproduction as rep
+from . import config
+from . import utils as ut
+from . import population as pop
+from . import reproduction as rep
 
 
 def simulate() -> dict[str, config.Vector] | None:
