@@ -91,8 +91,8 @@ streamlit run run.py
 ```
 
 ## Deployed
-Hosted on **Streamlit Community Cloud**. Expect a heavy cold start, or even a manual start.    
-https://genedrive.streamlit.app
+Hosted on **Railway**. Expect cold start.    
+https://genedrive.up.railway.app
 
 ## License
 
