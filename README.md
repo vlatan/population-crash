@@ -85,10 +85,15 @@ pip install -r requirements.txt
 
 ### Usage
 
-Launch the app on `localhost` on port `8501`.
+Launch the app on `localhost:8080`.
 ``` bash
-streamlit run run.py
+streamlit run run.py --server.port 8080
 ```
+
+Or build an image and run the app in a Docker container.
+```
+docker build -t crispr .
+docker run -p 8080:8080 crispr
 
 ## License
 
