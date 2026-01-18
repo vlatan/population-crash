@@ -94,6 +94,7 @@ Or build an image and run the app in a Docker container.
 ```
 docker build -t crispr .
 docker run -p 8080:8080 crispr
+```
 
 ## License
 
