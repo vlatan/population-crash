@@ -90,10 +90,6 @@ Launch the app on `localhost` on port `8501`.
 streamlit run run.py
 ```
 
-## Deployed
-Hosted on **Railway**. Expect cold start.    
-https://genedrive.up.railway.app
-
 ## License
 
 [![License: MIT](https://img.shields.io/github/license/vlatan/population-crash?label=License)](/LICENSE "License: MIT")
